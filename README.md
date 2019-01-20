@@ -68,9 +68,9 @@ const YourOwnComponent = () => <Text>Your Pretty Component Goes Here</Text>;
 export default Example;
 ```
 
-## API Usage
+## Props
 
-| Props        | Type     | Description                                   | Default  |
+| Prop         | Type     | Description                                   | Default  |
 | ------------ | -------- | --------------------------------------------- | -------- |
 | height       | number   | Height of Bottom Sheet                        | 260      |
 | duration     | number   | Duration of Bottom Sheet animation            | 300 (ms) |
