@@ -1,0 +1,33 @@
+{
+  "name": "react-native-raw-bottom-sheet",
+  "version": "1.0.0",
+  "description": "Add Your Own Component To Bottom Sheet Whatever You Want (Android &amp; iOS)",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/NYSamnang/react-native-raw-bottom-sheet.git"
+  },
+  "keywords": [
+    "Sheet",
+    "Bottom Sheet",
+    "BottomSheet",
+    "Action Sheet",
+    "Raw Sheet",
+    "Bottom Animated",
+    "Picker",
+    "Modal",
+    "Dialog"
+  ],
+  "author": "NY Samnang",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/NYSamnang/react-native-raw-bottom-sheet/issues"
+  },
+  "homepage": "https://github.com/NYSamnang/react-native-raw-bottom-sheet#readme",
+  "dependencies": {
+    "prop-types": "^15.6.2"
+  }
+}
