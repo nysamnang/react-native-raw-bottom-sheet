@@ -101,3 +101,7 @@ Always set `ref` to `RBSheet` and call each method by using `this.RBSheet.method
 ## License
 
 This project is licensed under the MIT License - see the [LICENSE.md](https://github.com/NYSamnang/react-native-raw-bottom-sheet/blob/master/LICENSE) file for details
+
+## Author
+
+Made with ❤️ by [NY Samnang](https://github.com/NYSamnang).
