@@ -33,7 +33,7 @@ class RBSheet extends Component {
       }).start();
     } else {
       return Animated.timing(this.state.animatedHeight, {
-        toValue: 0,
+        toValue: minHeight,
         duration: duration
       }).start(() => {
         this.setState({ modalVisible: visible });
@@ -101,6 +101,7 @@ RBSheet.propTypes = {
 };
 
 RBSheet.defaultProps = {
+  minHeight: 10,
   height: 260,
   duration: 300,
   customStyles: {}
