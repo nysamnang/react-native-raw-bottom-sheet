@@ -24,7 +24,7 @@ class RBSheet extends Component {
   }
 
   setModalVisible(visible) {
-    const { height, duration } = this.props;
+    const { minHeight, height, duration } = this.props;
     if (visible) {
       this.setState({ modalVisible: visible });
       return Animated.timing(this.state.animatedHeight, {
@@ -94,6 +94,7 @@ class RBSheet extends Component {
 }
 
 RBSheet.propTypes = {
+  minHeight: PropTypes.number,
   height: PropTypes.number,
   duration: PropTypes.number,
   customStyles: PropTypes.object,
@@ -101,7 +102,7 @@ RBSheet.propTypes = {
 };
 
 RBSheet.defaultProps = {
-  minHeight: 10,
+  minHeight: 0,
   height: 260,
   duration: 300,
   customStyles: {}
