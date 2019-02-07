@@ -1,5 +1,8 @@
 # react-native-raw-bottom-sheet
 
+
+# Forked from NYSamnang and added "minHeight", so you can make the sheet simply go down and not disappear if you set minHeight > 0.
+
 [![npm version](https://badge.fury.io/js/react-native-raw-bottom-sheet.svg)](//npmjs.com/package/react-native-raw-bottom-sheet) [![npm downloads](https://img.shields.io/npm/dm/react-native-raw-bottom-sheet.svg)
 ](//npmjs.com/package/react-native-raw-bottom-sheet)
 
@@ -48,6 +51,7 @@ class Example extends Component {
             this.RBSheet = ref;
           }}
           height={300}
+          minHeight={0}
           duration={250}
           customStyles={{
             content: {
@@ -73,6 +77,7 @@ export default Example;
 | Prop         | Type     | Description                                   | Default  |
 | ------------ | -------- | --------------------------------------------- | -------- |
 | height       | number   | Height of Bottom Sheet                        | 260      |
+| minHeight    | number   | Minimum height of Bottom Sheet                | 0        |
 | duration     | number   | Duration of Bottom Sheet animation            | 300 (ms) |
 | customStyles | object   | Custom style to Bottom Sheet                  | {}       |
 | onPressMask  | function | Event on Mask (The area outside Bottom Sheet) |          |
