@@ -57,7 +57,7 @@ class RBSheet extends Component {
         toValue: 0,
         duration: duration,
         useNativeDriver: true,
-        delay: 100
+        delay: 200
       }).start();
     } else {
       Animated.timing(this.state.animatedTranslate, {
@@ -66,6 +66,7 @@ class RBSheet extends Component {
         useNativeDriver: true
       }).start(() => {
         this.setState({ modalVisible: visible });
+        this.state.animatedTranslate.setValue(height);
         if (typeof onClose === "function") onClose();
       });
     }
