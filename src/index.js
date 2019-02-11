@@ -18,12 +18,11 @@ const SUPPORTED_ORIENTATIONS = [
 ];
 
 class RBSheet extends Component {
-  constructor() {
+  constructor(props) {
     super();
     this.state = {
       modalVisible: false,
-      animatedHeight: new Animated.Value(0),
-      pan: new Animated.ValueXY()
+      animatedTranslate: new Animated.Value(props.height)
     };
 
     this.createPanResponder();
@@ -35,13 +34,16 @@ class RBSheet extends Component {
       onPanResponderMove: (e, gestureState) => {
         gestureState.dy < 0
           ? null
-          : Animated.event([null, { dy: this.state.pan.y }])(e, gestureState);
+          : Animated.event([null, { dy: this.state.animatedTranslate }])(e, gestureState);
       },
       onPanResponderRelease: (e, gestureState) => {
         if (this.props.height / 4 - gestureState.dy < 0) {
           this.setModalVisible(false);
         } else {
-          Animated.spring(this.state.pan, { toValue: { x: 0, y: 0 } }).start();
+          Animated.spring(this.state.animatedTranslate, { 
+            toValue: 0,
+            useNativeDriver: true
+          }).start();
         }
       }
     });
@@ -51,17 +53,19 @@ class RBSheet extends Component {
     const { height, duration, onClose } = this.props;
     if (visible) {
       this.setState({ modalVisible: visible });
-      Animated.timing(this.state.animatedHeight, {
-        toValue: height,
-        duration: duration
+      Animated.timing(this.state.animatedTranslate, {
+        toValue: 0,
+        duration: duration,
+        useNativeDriver: true,
+        delay: 100
       }).start();
     } else {
-      Animated.timing(this.state.animatedHeight, {
-        toValue: 0,
-        duration: duration
+      Animated.timing(this.state.animatedTranslate, {
+        toValue: height,
+        duration: duration,
+        useNativeDriver: true
       }).start(() => {
         this.setState({ modalVisible: visible });
-        this.state.pan.setValue({ x: 0, y: 0 });
         if (typeof onClose === "function") onClose();
       });
     }
@@ -77,14 +81,12 @@ class RBSheet extends Component {
 
   render() {
     const { closeOnPressMask, children, customStyles } = this.props;
-    const panStyle = {
-      transform: this.state.pan.getTranslateTransform()
-    };
 
     return (
       <Modal
         transparent={true}
         animationType="none"
+        useNativeDriver={true}
         visible={this.state.modalVisible}
         supportedOrientations={SUPPORTED_ORIENTATIONS}
         onRequestClose={() => {
@@ -100,10 +102,14 @@ class RBSheet extends Component {
           <Animated.View
             {...this.panResponder.panHandlers}
             style={[
-              panStyle,
               styles.container,
               customStyles.container,
-              { height: this.state.animatedHeight }
+              { height: this.props.height },
+              { 
+                transform: [
+                  { translateY: this.state.animatedTranslate }
+                ]
+              }
             ]}
           >
             {children}
