@@ -1,8 +1,5 @@
 # react-native-raw-bottom-sheet
 
-
-# Forked from NYSamnang and added "minHeight", so you can make the sheet simply go down and not disappear if you set minHeight > 0.
-
 [![npm version](https://badge.fury.io/js/react-native-raw-bottom-sheet.svg)](//npmjs.com/package/react-native-raw-bottom-sheet) [![npm downloads](https://img.shields.io/npm/dm/react-native-raw-bottom-sheet.svg)
 ](//npmjs.com/package/react-native-raw-bottom-sheet)
 
@@ -10,12 +7,13 @@
 - Smooth Animation
 - Add Your own Component To Bottom Sheet
 - Customize Whatever You Like
+- Support Gesture Swipe Down
 - Support All Orientations
 - Support Both Android And iOS
 
-|                                                   Showcase iOS                                                   |                                                 Showcase Android                                                 |
-| :--------------------------------------------------------------------------------------------------------------: | :--------------------------------------------------------------------------------------------------------------: |
-| ![](https://raw.githubusercontent.com/NYSamnang/stock-images/master/react-native-raw-bottom-sheet/RNRBS-IOS.gif) | ![](https://raw.githubusercontent.com/NYSamnang/stock-images/master/react-native-raw-bottom-sheet/RNRBS-AOS.gif) |
+|                                                      Showcase iOS                                                      |                                                    Showcase Android                                                    |
+| :--------------------------------------------------------------------------------------------------------------------: | :--------------------------------------------------------------------------------------------------------------------: |
+| ![](https://raw.githubusercontent.com/NYSamnang/stock-images/master/react-native-raw-bottom-sheet/RNRBS-IOS-1.1.0.gif) | ![](https://raw.githubusercontent.com/NYSamnang/stock-images/master/react-native-raw-bottom-sheet/RNRBS-AOS-1.1.0.gif) |
 
 ## Installation
 
@@ -54,7 +52,7 @@ class Example extends Component {
           minHeight={0}
           duration={250}
           customStyles={{
-            content: {
+            container: {
               justifyContent: "center",
               alignItems: "center"
             }
@@ -74,21 +72,22 @@ export default Example;
 
 ## Props
 
-| Prop         | Type     | Description                                   | Default  |
-| ------------ | -------- | --------------------------------------------- | -------- |
-| height       | number   | Height of Bottom Sheet                        | 260      |
-| minHeight    | number   | Minimum height of Bottom Sheet                | 0        |
-| duration     | number   | Duration of Bottom Sheet animation            | 300 (ms) |
-| customStyles | object   | Custom style to Bottom Sheet                  | {}       |
-| onPressMask  | function | Event on Mask (The area outside Bottom Sheet) |          |
+| Prop             | Type     | Description                                    | Default  |
+| ---------------- | -------- | ---------------------------------------------- | -------- |
+| height           | number   | Height of Bottom Sheet                         | 260      |
+| minClosingHeight | number   | Minimum height of Bottom Sheet before close    | 0        |
+| duration         | number   | Duration of Bottom Sheet animation             | 300 (ms) |
+| closeOnSwipeDown | boolean  | Use gesture swipe down to close Bottom Sheet   | true     |
+| closeOnPressMask | boolean  | Press the area outside to close Bottom Sheet   | true     |
+| onClose          | function | Callback function when Bottom Sheet was closed |          |
+| customStyles     | object   | Custom style to Bottom Sheet                   | {}       |
 
 ### Available Custom Style
 
 ```jsx
 customStyles: {
-  mask: {...}, // The area outside Bottom Sheet
-  container: {...}, // Bottom Sheet Container
-  content: {...} // Bottom Sheet Content
+  wrapper: {...}, // The Background of Component
+  container: {...} // The Container of Bottom Sheet
 }
 ```
 
@@ -102,6 +101,10 @@ customStyles: {
 ### Note
 
 Always set `ref` to `RBSheet` and call each method by using `this.RBSheet.methodName()` like example above.
+
+### Give me a Star
+
+If you think this project is helpful just give me a ⭐️ Star is enough because i don't drink coffee :D
 
 ## License
 

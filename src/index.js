@@ -1,6 +1,12 @@
 import React, { Component } from "react";
 import PropTypes from "prop-types";
-import { View, Modal, TouchableOpacity, Animated } from "react-native";
+import {
+  View,
+  Modal,
+  TouchableOpacity,
+  Animated,
+  PanResponder
+} from "react-native";
 import styles from "./style";
 
 const SUPPORTED_ORIENTATIONS = [
@@ -16,35 +22,52 @@ class RBSheet extends Component {
     super();
     this.state = {
       modalVisible: false,
-      animatedHeight: new Animated.Value(0)
+      animatedHeight: new Animated.Value(0),
+      pan: new Animated.ValueXY()
     };
 
-    this.onPressMask = this.onPressMask.bind(this);
-    this.setModalVisible = this.setModalVisible.bind(this);
+    this.createPanResponder();
+  }
+
+  createPanResponder() {
+    this.panResponder = PanResponder.create({
+      onStartShouldSetPanResponder: () => this.props.closeOnSwipeDown,
+      onPanResponderMove: (e, gestureState) => {
+        gestureState.dy < 0
+          ? null
+          : Animated.event([null, { dy: this.state.pan.y }])(e, gestureState);
+      },
+      onPanResponderRelease: (e, gestureState) => {
+        if (this.props.height / 4 - gestureState.dy < 0) {
+          this.setModalVisible(false);
+        } else {
+          Animated.spring(this.state.pan, { toValue: { x: 0, y: 0 } }).start();
+        }
+      }
+    });
   }
 
   setModalVisible(visible) {
-    const { minHeight, height, duration } = this.props;
+    const { height, minClosingHeight, duration, onClose } = this.props;
     if (visible) {
       this.setState({ modalVisible: visible });
-      return Animated.timing(this.state.animatedHeight, {
+      Animated.timing(this.state.animatedHeight, {
         toValue: height,
         duration: duration
       }).start();
     } else {
-      return Animated.timing(this.state.animatedHeight, {
-        toValue: minHeight,
+      Animated.timing(this.state.animatedHeight, {
+        toValue: minClosingHeight,
         duration: duration
       }).start(() => {
-        this.setState({ modalVisible: visible });
-      });
-    }
-  }
+        this.setState({
+          modalVisible: visible,
+          animatedHeight: new Animated.Value(0),
+          pan: new Animated.ValueXY()
+        });
 
-  onPressMask() {
-    this.setModalVisible(false);
-    if (typeof this.props.onPressMask === "function") {
-      this.props.onPressMask();
+        if (typeof onClose === "function") onClose();
+      });
     }
   }
 
@@ -57,7 +80,10 @@ class RBSheet extends Component {
   }
 
   render() {
-    const { children, customStyles } = this.props;
+    const { closeOnPressMask, children, customStyles } = this.props;
+    const panStyle = {
+      transform: this.state.pan.getTranslateTransform()
+    };
 
     return (
       <Modal
@@ -69,42 +95,45 @@ class RBSheet extends Component {
           this.setModalVisible(false);
         }}
       >
-        <TouchableOpacity
-          style={[styles.mask, customStyles.mask]}
-          activeOpacity={1}
-          onPress={this.onPressMask}
-        >
+        <View style={[styles.wrapper, customStyles.wrapper]}>
+          <TouchableOpacity
+            style={styles.mask}
+            activeOpacity={1}
+            onPress={() => (closeOnPressMask ? this.close() : {})}
+          />
           <Animated.View
+            {...this.panResponder.panHandlers}
             style={[
+              panStyle,
               styles.container,
-              { height: this.state.animatedHeight },
-              customStyles.container
+              customStyles.container,
+              { height: this.state.animatedHeight }
             ]}
           >
-            <TouchableOpacity activeOpacity={1} style={styles.content}>
-              <View style={[styles.content, customStyles.content]}>
-                {children}
-              </View>
-            </TouchableOpacity>
+            {children}
           </Animated.View>
-        </TouchableOpacity>
+        </View>
       </Modal>
     );
   }
 }
 
 RBSheet.propTypes = {
-  minHeight: PropTypes.number,
   height: PropTypes.number,
+  minClosingHeight: PropTypes.number,
   duration: PropTypes.number,
+  closeOnSwipeDown: PropTypes.bool,
+  closeOnPressMask: PropTypes.bool,
   customStyles: PropTypes.object,
-  onPressMask: PropTypes.func
+  onClose: PropTypes.func
 };
 
 RBSheet.defaultProps = {
-  minHeight: 0,
   height: 260,
+  minClosingHeight: 0,
   duration: 300,
+  closeOnSwipeDown: true,
+  closeOnPressMask: true,
   customStyles: {}
 };
 
