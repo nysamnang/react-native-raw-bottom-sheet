@@ -79,14 +79,14 @@ export default Example;
 | duration         | number   | Duration of Bottom Sheet animation             | 300 (ms) |
 | closeOnSwipeDown | boolean  | Use gesture swipe down to close Bottom Sheet   | true     |
 | closeOnPressMask | boolean  | Press the area outside to close Bottom Sheet   | true     |
-| onClose          | function | Callback function when Bottom Sheet was closed |          |
+| onClose          | function | Callback function when Bottom Sheet has closed |          |
 | customStyles     | object   | Custom style to Bottom Sheet                   | {}       |
 
 ### Available Custom Style
 
 ```jsx
 customStyles: {
-  wrapper: {...}, // The Background of Component
+  wrapper: {...}, // The Root of Component
   container: {...} // The Container of Bottom Sheet
 }
 ```
@@ -100,7 +100,8 @@ customStyles: {
 
 ### Note
 
-Always set `ref` to `RBSheet` and call each method by using `this.RBSheet.methodName()` like example above.
+- Always set `ref` to `RBSheet` and call each method by using `this.RBSheet.methodName()` like example above.
+- If you want to use `Scrollable Component` like `ScrollView`, `Flatlist` or something else inside `RBSheet`, you have to change prop `closeOnSwipeDown` to `false` otherwise it won't work.
 
 ### Give me a Star
 
