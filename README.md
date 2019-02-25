@@ -49,7 +49,6 @@ class Example extends Component {
             this.RBSheet = ref;
           }}
           height={300}
-          minHeight={0}
           duration={250}
           customStyles={{
             container: {
