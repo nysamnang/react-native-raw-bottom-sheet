@@ -132,7 +132,7 @@ RBSheet.defaultProps = {
   height: 260,
   minClosingHeight: 0,
   duration: 300,
-  closeOnSwipeDown: true,
+  closeOnSwipeDown: false,
   closeOnPressMask: true,
   customStyles: {}
 };

@@ -7,7 +7,7 @@
 - Smooth Animation
 - Add Your own Component To Bottom Sheet
 - Customize Whatever You Like
-- Support Gesture Swipe Down
+- Support Swipe Down Gesture
 - Support All Orientations
 - Support Both Android And iOS
 
@@ -77,7 +77,7 @@ export default Example;
 | height           | number   | Height of Bottom Sheet                         | 260      |
 | minClosingHeight | number   | Minimum height of Bottom Sheet before close    | 0        |
 | duration         | number   | Duration of Bottom Sheet animation             | 300 (ms) |
-| closeOnSwipeDown | boolean  | Use gesture swipe down to close Bottom Sheet   | true     |
+| closeOnSwipeDown | boolean  | Use gesture swipe down to close Bottom Sheet   | false    |
 | closeOnPressMask | boolean  | Press the area outside to close Bottom Sheet   | true     |
 | onClose          | function | Callback function when Bottom Sheet has closed |          |
 | customStyles     | object   | Custom style to Bottom Sheet                   | {}       |
