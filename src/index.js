@@ -48,7 +48,7 @@ class RBSheet extends Component {
   }
 
   setModalVisible(visible) {
-    const { height, duration, onClose } = this.props;
+    const { height, minClosingHeight, duration, onClose } = this.props;
     if (visible) {
       this.setState({ modalVisible: visible });
       Animated.timing(this.state.animatedHeight, {
@@ -57,11 +57,15 @@ class RBSheet extends Component {
       }).start();
     } else {
       Animated.timing(this.state.animatedHeight, {
-        toValue: 0,
+        toValue: minClosingHeight,
         duration: duration
       }).start(() => {
-        this.setState({ modalVisible: visible });
-        this.state.pan.setValue({ x: 0, y: 0 });
+        this.setState({
+          modalVisible: visible,
+          animatedHeight: new Animated.Value(0),
+          pan: new Animated.ValueXY()
+        });
+
         if (typeof onClose === "function") onClose();
       });
     }
@@ -116,6 +120,7 @@ class RBSheet extends Component {
 
 RBSheet.propTypes = {
   height: PropTypes.number,
+  minClosingHeight: PropTypes.number,
   duration: PropTypes.number,
   closeOnSwipeDown: PropTypes.bool,
   closeOnPressMask: PropTypes.bool,
@@ -125,6 +130,7 @@ RBSheet.propTypes = {
 
 RBSheet.defaultProps = {
   height: 260,
+  minClosingHeight: 0,
   duration: 300,
   closeOnSwipeDown: true,
   closeOnPressMask: true,

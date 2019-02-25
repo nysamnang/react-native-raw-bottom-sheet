@@ -49,6 +49,7 @@ class Example extends Component {
             this.RBSheet = ref;
           }}
           height={300}
+          minHeight={0}
           duration={250}
           customStyles={{
             container: {
@@ -74,6 +75,7 @@ export default Example;
 | Prop             | Type     | Description                                    | Default  |
 | ---------------- | -------- | ---------------------------------------------- | -------- |
 | height           | number   | Height of Bottom Sheet                         | 260      |
+| minClosingHeight | number   | Minimum height of Bottom Sheet before close    | 0        |
 | duration         | number   | Duration of Bottom Sheet animation             | 300 (ms) |
 | closeOnSwipeDown | boolean  | Use gesture swipe down to close Bottom Sheet   | true     |
 | closeOnPressMask | boolean  | Press the area outside to close Bottom Sheet   | true     |
