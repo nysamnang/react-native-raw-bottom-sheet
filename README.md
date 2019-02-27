@@ -1,7 +1,9 @@
 # react-native-raw-bottom-sheet
 
-[![npm version](https://badge.fury.io/js/react-native-raw-bottom-sheet.svg)](//npmjs.com/package/react-native-raw-bottom-sheet) [![npm downloads](https://img.shields.io/npm/dm/react-native-raw-bottom-sheet.svg)
+[![npm version](https://badge.fury.io/js/react-native-raw-bottom-sheet.svg)](//npmjs.com/package/react-native-raw-bottom-sheet)
+[![npm downloads](https://img.shields.io/npm/dm/react-native-raw-bottom-sheet.svg)
 ](//npmjs.com/package/react-native-raw-bottom-sheet)
+[![Build Status](https://travis-ci.org/nysamnang/react-native-raw-bottom-sheet.svg?branch=master)](https://travis-ci.org/nysamnang/react-native-raw-bottom-sheet)
 
 - Super Lightweight Component
 - Smooth Animation
@@ -13,7 +15,7 @@
 
 |                                                      Showcase iOS                                                      |                                                    Showcase Android                                                    |
 | :--------------------------------------------------------------------------------------------------------------------: | :--------------------------------------------------------------------------------------------------------------------: |
-| ![](https://raw.githubusercontent.com/NYSamnang/stock-images/master/react-native-raw-bottom-sheet/RNRBS-IOS-1.1.0.gif) | ![](https://raw.githubusercontent.com/NYSamnang/stock-images/master/react-native-raw-bottom-sheet/RNRBS-AOS-1.1.0.gif) |
+| ![](https://raw.githubusercontent.com/nysamnang/stock-images/master/react-native-raw-bottom-sheet/RNRBS-IOS-1.1.0.gif) | ![](https://raw.githubusercontent.com/nysamnang/stock-images/master/react-native-raw-bottom-sheet/RNRBS-AOS-1.1.0.gif) |
 
 ## Installation
 
@@ -97,19 +99,19 @@ customStyles: {
 | open        | Open Bottom Sheet  |
 | close       | Close Bottom Sheet |
 
-### Note
+## Note
 
 - Always set `ref` to `RBSheet` and call each method by using `this.RBSheet.methodName()` like example above.
 - If you want to use `Scrollable Component` like `ScrollView`, `Flatlist` or something else inside `RBSheet`, you have to change prop `closeOnSwipeDown` to `false` otherwise it won't work.
 
-### Give me a Star
+## Give me a Star
 
 If you think this project is helpful just give me a ⭐️ Star is enough because i don't drink coffee :D
 
 ## License
 
-This project is licensed under the MIT License - see the [LICENSE.md](https://github.com/NYSamnang/react-native-raw-bottom-sheet/blob/master/LICENSE) file for details
+This project is licensed under the MIT License - see the [LICENSE.md](https://github.com/nysamnang/react-native-raw-bottom-sheet/blob/master/LICENSE) file for details
 
 ## Author
 
-Made with ❤️ by [NY Samnang](https://github.com/NYSamnang).
+Made with ❤️ by [NY Samnang](https://github.com/nysamnang).
