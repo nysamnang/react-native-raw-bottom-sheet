@@ -17,5 +17,8 @@
     ],
     "import/no-extraneous-dependencies": ["error", { "devDependencies": true }]
   },
-  "plugins": ["prettier"]
+  "plugins": ["prettier"],
+  "env": {
+    "jest": true
+  }
 }
