@@ -12,6 +12,7 @@
 - Support Swipe Down Gesture
 - Support All Orientations
 - Support Both Android And iOS
+- Top Search Ranking (react native bottom sheet) at [npms.io](https://npms.io/search?q=react%20native%20bottom%20sheet)
 
 |                                                      Showcase iOS                                                      |                                                    Showcase Android                                                    |
 | :--------------------------------------------------------------------------------------------------------------------: | :--------------------------------------------------------------------------------------------------------------------: |
