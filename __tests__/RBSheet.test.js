@@ -1,5 +1,5 @@
 import React from "react";
-import { View, Text } from "react-native";
+import { View, Text, Modal, TouchableOpacity } from "react-native";
 import Enzyme, { shallow } from "enzyme";
 import Adapter from "enzyme-adapter-react-16";
 import RBSheet from "../src";
@@ -53,25 +53,87 @@ describe("React Native Raw Bottom Sheet", () => {
       const wrapper = shallow(<RBSheet />);
       const createPanResponder = jest.spyOn(RBSheet.prototype, "createPanResponder");
       wrapper.instance().createPanResponder({ closeOnSwipeDown: true, height: 300 });
-      expect(createPanResponder).toHaveBeenCalled();
+      expect(createPanResponder).toHaveBeenCalledTimes(1);
     });
 
-    it("should component open", () => {
+    let wrapper;
+    let setModalVisible;
+    const onClose = jest.fn();
+    beforeEach(() => {
+      wrapper = shallow(<RBSheet onClose={onClose} />);
+      setModalVisible = jest.spyOn(RBSheet.prototype, "setModalVisible");
       jest.useFakeTimers(); // https://github.com/facebook/jest/issues/4359
-      const wrapper = shallow(<RBSheet />);
-      const setModalVisible = jest.spyOn(RBSheet.prototype, "setModalVisible");
+      jest.mock("Animated", () => {
+        const ActualAnimated = require.requireActual("Animated");
+        return {
+          ...ActualAnimated,
+          timing: (value, config) => {
+            return {
+              start: callback => {
+                value.setValue(config.toValue);
+                if (typeof callback === "function") callback();
+              }
+            };
+          }
+        };
+      });
+    });
+
+    it("should method open called", () => {
       wrapper.instance().open();
       expect(setModalVisible).toHaveBeenCalled();
       expect(wrapper.state().modalVisible).toBe(true);
     });
 
-    it("should component close", () => {
-      jest.useFakeTimers(); // https://github.com/facebook/jest/issues/4359
-      const wrapper = shallow(<RBSheet />);
-      const setModalVisible = jest.spyOn(RBSheet.prototype, "setModalVisible");
+    it("should method close called", () => {
       wrapper.instance().close();
       expect(setModalVisible).toHaveBeenCalled();
       expect(wrapper.state().modalVisible).toBe(false);
+    });
+
+    it("should onClose callback function called", () => {
+      wrapper.instance().close();
+      expect(onClose).toHaveBeenCalled();
+    });
+  });
+
+  describe("Button", () => {
+    it("should render <TouchableOpacity>", () => {
+      const wrapper = shallow(<RBSheet />);
+      expect(wrapper.find(TouchableOpacity).length).toEqual(1);
+    });
+
+    it("should closeOnPressMask when given prop true", () => {
+      const wrapper = shallow(<RBSheet closeOnPressMask />);
+      wrapper.instance().close = jest.fn();
+      wrapper.find(TouchableOpacity).simulate("Press");
+      expect(wrapper.instance().close).toHaveBeenCalled();
+    });
+
+    it("should not closeOnPressMask when given prop false", () => {
+      const wrapper = shallow(<RBSheet closeOnPressMask={false} />);
+      wrapper.instance().close = jest.fn();
+      wrapper.find(TouchableOpacity).simulate("Press");
+      expect(wrapper.instance().close).not.toHaveBeenCalled();
+    });
+  });
+
+  describe("Modal", () => {
+    it("should render <Modal>", () => {
+      const wrapper = shallow(<RBSheet />);
+      expect(wrapper.find(Modal).length).toEqual(1);
+    });
+
+    it("should onRequestClose called", () => {
+      const mockFn = jest.fn();
+      RBSheet.prototype.setModalVisible = mockFn;
+      const wrapper = shallow(<RBSheet />);
+      wrapper
+        .find(Modal)
+        .props()
+        .onRequestClose();
+
+      expect(mockFn).toHaveBeenCalled();
     });
   });
 });
