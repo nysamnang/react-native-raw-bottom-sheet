@@ -76,6 +76,7 @@ export default Example;
 
 | Prop             | Type     | Description                                    | Default  |
 | ---------------- | -------- | ---------------------------------------------- | -------- |
+| animationType    | string   | Background animation ("none", "fade", "slide") | "none"   |
 | height           | number   | Height of Bottom Sheet                         | 260      |
 | minClosingHeight | number   | Minimum height of Bottom Sheet before close    | 0        |
 | duration         | number   | Duration of Bottom Sheet animation             | 300 (ms) |
