@@ -77,7 +77,7 @@ class RBSheet extends Component {
   }
 
   render() {
-    const { closeOnPressMask, children, customStyles } = this.props;
+    const { animationType, closeOnPressMask, children, customStyles } = this.props;
     const { animatedHeight, pan, modalVisible } = this.state;
     const panStyle = {
       transform: pan.getTranslateTransform()
@@ -86,7 +86,7 @@ class RBSheet extends Component {
     return (
       <Modal
         transparent
-        animationType="none"
+        animationType={animationType}
         visible={modalVisible}
         supportedOrientations={SUPPORTED_ORIENTATIONS}
         onRequestClose={() => {
@@ -112,6 +112,7 @@ class RBSheet extends Component {
 }
 
 RBSheet.propTypes = {
+  animationType: PropTypes.string,
   height: PropTypes.number,
   minClosingHeight: PropTypes.number,
   duration: PropTypes.number,
@@ -123,6 +124,7 @@ RBSheet.propTypes = {
 };
 
 RBSheet.defaultProps = {
+  animationType: 'none',
   height: 260,
   minClosingHeight: 0,
   duration: 300,
