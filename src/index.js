@@ -112,7 +112,7 @@ class RBSheet extends Component {
 }
 
 RBSheet.propTypes = {
-  animationType: PropTypes.string,
+  animationType: PropTypes.oneOf(["none", "slide", "fade"]),
   height: PropTypes.number,
   minClosingHeight: PropTypes.number,
   duration: PropTypes.number,
@@ -124,7 +124,7 @@ RBSheet.propTypes = {
 };
 
 RBSheet.defaultProps = {
-  animationType: 'none',
+  animationType: "none",
   height: 260,
   minClosingHeight: 0,
   duration: 300,
