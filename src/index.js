@@ -49,10 +49,10 @@ class RBSheet extends Component {
   }
 
   createPanResponder(props) {
-    const { closeOnSwipeDown, height } = props;
+    const { closeOnDragDown, height } = props;
     const { pan } = this.state;
     this.panResponder = PanResponder.create({
-      onStartShouldSetPanResponder: () => closeOnSwipeDown,
+      onStartShouldSetPanResponder: () => closeOnDragDown,
       onPanResponderMove: (e, gestureState) => {
         if (gestureState.dy > 0) {
           Animated.event([null, { dy: pan.y }])(e, gestureState);
@@ -116,7 +116,7 @@ RBSheet.propTypes = {
   height: PropTypes.number,
   minClosingHeight: PropTypes.number,
   duration: PropTypes.number,
-  closeOnSwipeDown: PropTypes.bool,
+  closeOnDragDown: PropTypes.bool,
   closeOnPressMask: PropTypes.bool,
   customStyles: PropTypes.objectOf(PropTypes.object),
   onClose: PropTypes.func,
@@ -128,7 +128,7 @@ RBSheet.defaultProps = {
   height: 260,
   minClosingHeight: 0,
   duration: 300,
-  closeOnSwipeDown: false,
+  closeOnDragDown: false,
   closeOnPressMask: true,
   customStyles: {},
   onClose: null,
