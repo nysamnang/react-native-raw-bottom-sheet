@@ -9,7 +9,7 @@
 - Smooth Animation
 - Add Your own Component To Bottom Sheet
 - Customize Whatever You Like
-- Support Swipe Down Gesture
+- Support Drag Down Gesture
 - Support All Orientations
 - Support Both Android And iOS
 - Top Search Ranking (react native bottom sheet) at [npms.io](https://npms.io/search?q=react%20native%20bottom%20sheet)
@@ -80,7 +80,7 @@ export default Example;
 | height           | number   | Height of Bottom Sheet                         | 260      |
 | minClosingHeight | number   | Minimum height of Bottom Sheet before close    | 0        |
 | duration         | number   | Duration of Bottom Sheet animation             | 300 (ms) |
-| closeOnDragDown  | boolean  | Use gesture swipe down to close Bottom Sheet   | false    |
+| closeOnDragDown  | boolean  | Use gesture drag down to close Bottom Sheet    | false    |
 | closeOnPressMask | boolean  | Press the area outside to close Bottom Sheet   | true     |
 | onClose          | function | Callback function when Bottom Sheet has closed |          |
 | customStyles     | object   | Custom style to Bottom Sheet                   | {}       |
