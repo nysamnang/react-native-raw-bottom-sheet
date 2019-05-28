@@ -1,6 +1,6 @@
 {
   "name": "react-native-raw-bottom-sheet",
-  "version": "1.1.5",
+  "version": "2.0.0",
   "description": "Add Your Own Component To Bottom Sheet Whatever You Want (Android & iOS)",
   "main": "index.js",
   "typings": "typings/index.d.ts",
