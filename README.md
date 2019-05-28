@@ -9,7 +9,7 @@
 - Smooth Animation
 - Add Your own Component To Bottom Sheet
 - Customize Whatever You Like
-- Support Swipe Down Gesture
+- Support Drag Down Gesture
 - Support All Orientations
 - Support Both Android And iOS
 - Top Search Ranking (react native bottom sheet) at [npms.io](https://npms.io/search?q=react%20native%20bottom%20sheet)
@@ -41,16 +41,8 @@ class Example extends Component {
   render() {
     return (
       <View style={{ flex: 1, marginTop: 50, alignItems: "center" }}>
-        <Button
-          title="OPEN BOTTOM SHEET"
-          onPress={() => {
-            this.RBSheet.open();
-          }}
-        />
+        <Button title="OPEN BOTTOM SHEET" onPress={() => RBSheet.open()} />
         <RBSheet
-          ref={ref => {
-            this.RBSheet = ref;
-          }}
           height={300}
           duration={250}
           customStyles={{
@@ -74,13 +66,13 @@ export default Example;
 
 ## Props
 
-| Prop             | Type     | Description                                    | Default  |
+| Props            | Type     | Description                                    | Default  |
 | ---------------- | -------- | ---------------------------------------------- | -------- |
 | animationType    | string   | Background animation ("none", "fade", "slide") | "none"   |
 | height           | number   | Height of Bottom Sheet                         | 260      |
 | minClosingHeight | number   | Minimum height of Bottom Sheet before close    | 0        |
 | duration         | number   | Duration of Bottom Sheet animation             | 300 (ms) |
-| closeOnSwipeDown | boolean  | Use gesture swipe down to close Bottom Sheet   | false    |
+| closeOnDragDown  | boolean  | Use gesture drag down to close Bottom Sheet    | false    |
 | closeOnPressMask | boolean  | Press the area outside to close Bottom Sheet   | true     |
 | onClose          | function | Callback function when Bottom Sheet has closed |          |
 | customStyles     | object   | Custom style to Bottom Sheet                   | {}       |
@@ -103,8 +95,8 @@ customStyles: {
 
 ## Note
 
-- Always set `ref` to `RBSheet` and call each method by using `this.RBSheet.methodName()` like example above.
-- If you want to use `Scrollable Component` like `ScrollView`, `Flatlist` or something else inside `RBSheet`, you have to change prop `closeOnSwipeDown` to `false` otherwise it won't work.
+- Call each method by using `RBSheet.methodName()` like example above.
+- If you want to use `Scrollable Component` like `ScrollView`, `FlatList` or something else inside `RBSheet`, you have to change props `closeOnDragDown` to `false` otherwise it won't work.
 
 ## Give me a Star
 
