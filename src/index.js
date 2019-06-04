@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import PropTypes from "prop-types";
-import { View, Modal, TouchableOpacity, Animated, PanResponder } from "react-native";
+import { View, Modal, TouchableOpacity, Animated, PanResponder, StatusBar, Button, Dimensions } from "react-native";
 import styles from "./style";
 
 const SUPPORTED_ORIENTATIONS = [
@@ -24,7 +24,8 @@ class RBSheet extends Component {
   }
 
   setModalVisible(visible) {
-    const { height, minClosingHeight, duration, onClose } = this.props;
+    const { minClosingHeight, duration, onClose, coverFullScreen } = this.props;
+    coverFullScreen ? height = Dimensions.get('screen').height : height = this.props.height
     const { animatedHeight, pan } = this.state;
     if (visible) {
       this.setState({ modalVisible: visible });
@@ -77,7 +78,7 @@ class RBSheet extends Component {
   }
 
   render() {
-    const { animationType, closeOnPressMask, children, customStyles } = this.props;
+    const { animationType, closeOnPressMask, children, customStyles, hasCloseBtn, closeBtnText, closeBtnColor} = this.props;
     const { animatedHeight, pan, modalVisible } = this.state;
     const panStyle = {
       transform: pan.getTranslateTransform()
@@ -94,6 +95,7 @@ class RBSheet extends Component {
         }}
       >
         <View style={[styles.wrapper, customStyles.wrapper]}>
+          <StatusBar hidden={true} />
           <TouchableOpacity
             style={styles.mask}
             activeOpacity={1}
@@ -103,6 +105,18 @@ class RBSheet extends Component {
             {...this.panResponder.panHandlers}
             style={[panStyle, styles.container, customStyles.container, { height: animatedHeight }]}
           >
+            {
+              hasCloseBtn &&
+              <View style={{ alignItems: 'flex-end' }}>
+                <Button
+                  title={closeBtnText}
+                  color={closeBtnColor}
+                  onPress={() => {
+                    this.close();
+                  }}
+                />
+              </View>
+            }
             {children}
           </Animated.View>
         </View>
@@ -120,7 +134,11 @@ RBSheet.propTypes = {
   closeOnPressMask: PropTypes.bool,
   customStyles: PropTypes.objectOf(PropTypes.object),
   onClose: PropTypes.func,
-  children: PropTypes.node
+  children: PropTypes.node,
+  hasCloseBtn: PropTypes.bool,
+  closeBtnText: PropTypes.string,
+  closeBtnColor: PropTypes.string,
+  coverFullScreen: PropTypes.bool
 };
 
 RBSheet.defaultProps = {
@@ -132,7 +150,11 @@ RBSheet.defaultProps = {
   closeOnPressMask: true,
   customStyles: {},
   onClose: null,
-  children: <View />
+  children: <View />,
+  hasCloseBtn: false,
+  closeBtnText: "Close",
+  closeBtnColor: "#ff000078",
+  coverFullScreen: false
 };
 
 export default RBSheet;
