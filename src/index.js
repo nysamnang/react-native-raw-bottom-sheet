@@ -153,7 +153,7 @@ RBSheet.defaultProps = {
   children: <View />,
   hasCloseBtn: false,
   closeBtnText: "Close",
-  closeBtnColor: "#ff000078",
+  closeBtnColor: "#f00",
   coverFullScreen: false
 };
 
