@@ -25,6 +25,7 @@ class RBSheet extends Component {
 
   setModalVisible(visible) {
     const { minClosingHeight, duration, onClose, coverFullScreen } = this.props;
+    let height;
     coverFullScreen ? height = Dimensions.get('screen').height : height = this.props.height
     const { animatedHeight, pan } = this.state;
     if (visible) {
