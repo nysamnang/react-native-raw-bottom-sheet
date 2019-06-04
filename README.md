@@ -84,6 +84,12 @@ export default Example;
 | closeOnPressMask | boolean  | Press the area outside to close Bottom Sheet   | true     |
 | onClose          | function | Callback function when Bottom Sheet has closed |          |
 | customStyles     | object   | Custom style to Bottom Sheet                   | {}       |
+| hasCloseBtn      | boolean  | Close button visibility control                | false    |
+| closeBtnText     | string   | Label of the close control                     | Close    |
+| closeBtnColor    | string   | Label Color of the close control               | "#f00"   |
+| coverFullScreen  | boolean  | Bottom Sheet will cover full screen            | false    |
+
+
 
 ### Available Custom Style
 
