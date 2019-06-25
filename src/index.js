@@ -89,9 +89,7 @@ class RBSheet extends Component {
         animationType={animationType}
         visible={modalVisible}
         supportedOrientations={SUPPORTED_ORIENTATIONS}
-        onRequestClose={() => {
-          this.setModalVisible(false);
-        }}
+        onRequestClose={this.props.onRequestClose}
       >
         <View style={[styles.wrapper, customStyles.wrapper]}>
           <TouchableOpacity
@@ -120,6 +118,7 @@ RBSheet.propTypes = {
   closeOnPressMask: PropTypes.bool,
   customStyles: PropTypes.objectOf(PropTypes.object),
   onClose: PropTypes.func,
+  onRequestClose: PropTypes.func,
   children: PropTypes.node
 };
 
@@ -132,6 +131,7 @@ RBSheet.defaultProps = {
   closeOnPressMask: true,
   customStyles: {},
   onClose: null,
+  onRequestClose: () => {},
   children: <View />
 };
 
