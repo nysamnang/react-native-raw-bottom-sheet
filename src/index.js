@@ -16,7 +16,7 @@ class RBSheet extends Component {
     super(props);
     this.state = {
       modalVisible: false,
-      animatedHeight: new Animated.Value(0),
+      animatedHeight: new Animated.Value(props.height),
       pan: new Animated.ValueXY()
     };
 
@@ -28,24 +28,28 @@ class RBSheet extends Component {
     const { animatedHeight, pan } = this.state;
     if (visible) {
       this.setState({ modalVisible: visible });
-      Animated.timing(animatedHeight, {
-        toValue: height,
-        duration
-      }).start();
     } else {
       Animated.timing(animatedHeight, {
-        toValue: minClosingHeight,
-        duration
+        toValue: height,
+        duration,
+        useNativeDriver: true
       }).start(() => {
         pan.setValue({ x: 0, y: 0 });
         this.setState({
           modalVisible: visible,
-          animatedHeight: new Animated.Value(0)
+          animatedHeight: new Animated.Value(height)
         });
-
         if (typeof onClose === "function") onClose();
       });
     }
+  }
+
+  openBottomSheet({ animatedHeight, duration }) {
+    Animated.timing(animatedHeight, {
+      toValue: 0,
+      duration,
+      useNativeDriver: true,
+    }).start();
   }
 
   createPanResponder(props) {
@@ -77,7 +81,7 @@ class RBSheet extends Component {
   }
 
   render() {
-    const { animationType, closeOnPressMask, children, customStyles } = this.props;
+    const { animationType, closeOnPressMask, children, customStyles, duration } = this.props;
     const { animatedHeight, pan, modalVisible } = this.state;
     const panStyle = {
       transform: pan.getTranslateTransform()
@@ -88,6 +92,7 @@ class RBSheet extends Component {
         transparent
         animationType={animationType}
         visible={modalVisible}
+        onShow={() => this.openBottomSheet({ animatedHeight, duration })}
         supportedOrientations={SUPPORTED_ORIENTATIONS}
         onRequestClose={() => {
           this.setModalVisible(false);
@@ -101,7 +106,12 @@ class RBSheet extends Component {
           />
           <Animated.View
             {...this.panResponder.panHandlers}
-            style={[panStyle, styles.container, customStyles.container, { height: animatedHeight }]}
+            style={[panStyle, styles.container, customStyles.container, {
+              height: this.props.height,
+              transform: [
+                { translateY: animatedHeight }
+              ]
+            }]}
           >
             {children}
           </Animated.View>
@@ -124,7 +134,7 @@ RBSheet.propTypes = {
 };
 
 RBSheet.defaultProps = {
-  animationType: "none",
+  animationType: "fade",
   height: 260,
   minClosingHeight: 0,
   duration: 300,
