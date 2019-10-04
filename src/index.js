@@ -1,6 +1,14 @@
 import React, { Component } from "react";
 import PropTypes from "prop-types";
-import { View, Modal, TouchableOpacity, Animated, PanResponder } from "react-native";
+import {
+  View,
+  KeyboardAvoidingView,
+  Modal,
+  TouchableOpacity,
+  Animated,
+  PanResponder,
+  Platform
+} from "react-native";
 import styles from "./style";
 
 const SUPPORTED_ORIENTATIONS = [
@@ -93,19 +101,23 @@ class RBSheet extends Component {
           this.setModalVisible(false);
         }}
       >
-        <View style={[styles.wrapper, customStyles.wrapper]}>
+        <KeyboardAvoidingView
+          enabled={Platform.OS === "ios"}
+          behavior="padding"
+          style={[styles.wrapper, customStyles.wrapper]}
+        >
           <TouchableOpacity
             style={styles.mask}
             activeOpacity={1}
-            onPress={() => (closeOnPressMask ? this.close() : {})}
+            onPress={() => (closeOnPressMask ? this.close() : null)}
           />
           <Animated.View
             {...this.panResponder.panHandlers}
-            style={[panStyle, styles.container, customStyles.container, { height: animatedHeight }]}
+            style={[panStyle, styles.container, { height: animatedHeight }, customStyles.container]}
           >
             {children}
           </Animated.View>
-        </View>
+        </KeyboardAvoidingView>
       </Modal>
     );
   }
