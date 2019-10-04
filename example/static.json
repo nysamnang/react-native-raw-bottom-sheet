@@ -1,0 +1,86 @@
+{
+  "lists": [
+    {
+      "icon": "photo-camera",
+      "label": "Take photo"
+    },
+    {
+      "icon": "photo",
+      "label": "Choose image"
+    },
+    {
+      "icon": "brush",
+      "label": "Drawing"
+    },
+    {
+      "icon": "mic",
+      "label": "Recording"
+    },
+    {
+      "icon": "check-box",
+      "label": "Checkboxes"
+    }
+  ],
+  "grids": [
+    {
+      "label": "Facebook",
+      "icon": "facebook",
+      "color": "#3b5998"
+    },
+    {
+      "label": "Twitter",
+      "icon": "twitter",
+      "color": "#38A1F3"
+    },
+    {
+      "label": "Google+",
+      "icon": "google-plus-official",
+      "color": "#DD4B39"
+    },
+    {
+      "label": "Linkedin",
+      "icon": "linkedin",
+      "color": "#0077B5"
+    },
+    {
+      "label": "Dropbox",
+      "icon": "dropbox",
+      "color": "#3d9ae8"
+    },
+    {
+      "label": "Reddit",
+      "icon": "reddit-alien",
+      "color": "#FF4301"
+    },
+    {
+      "label": "Skype",
+      "icon": "skype",
+      "color": "#00aff0"
+    },
+    {
+      "label": "Pinterest",
+      "icon": "pinterest",
+      "color": "#c8232c"
+    },
+    {
+      "label": "Flickr",
+      "icon": "flickr",
+      "color": "#ff0084"
+    },
+    {
+      "label": "VK",
+      "icon": "vk",
+      "color": "#4c75a3"
+    },
+    {
+      "label": "Dribbble",
+      "icon": "dribbble",
+      "color": "#ea4c89"
+    },
+    {
+      "label": "Telegram",
+      "icon": "send",
+      "color": "#0088cc"
+    }
+  ]
+}
