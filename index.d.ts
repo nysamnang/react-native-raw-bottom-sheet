@@ -13,6 +13,7 @@ declare module "react-native-raw-bottom-sheet" {
     customStyles?: {
       wrapper?: StyleProp<ViewStyle>;
       container?: StyleProp<ViewStyle>;
+      draggableIcon?: StyleProp<ViewStyle>;
     };
   };
 

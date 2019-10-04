@@ -85,7 +85,7 @@ class RBSheet extends Component {
   }
 
   render() {
-    const { animationType, closeOnPressMask, children, customStyles } = this.props;
+    const { animationType, closeOnDragDown, closeOnPressMask, children, customStyles } = this.props;
     const { animatedHeight, pan, modalVisible } = this.state;
     const panStyle = {
       transform: pan.getTranslateTransform()
@@ -115,6 +115,11 @@ class RBSheet extends Component {
             {...this.panResponder.panHandlers}
             style={[panStyle, styles.container, { height: animatedHeight }, customStyles.container]}
           >
+            {closeOnDragDown && (
+              <View style={styles.draggableContainer}>
+                <View style={[styles.draggableIcon, customStyles.draggableIcon]} />
+              </View>
+            )}
             {children}
           </Animated.View>
         </KeyboardAvoidingView>
