@@ -46,6 +46,46 @@ describe("React Native Raw Bottom Sheet", () => {
       );
       expect(wrapper).toMatchSnapshot();
     });
+
+    describe("Mask", () => {
+      it("should render mask", () => {
+        const wrapper = shallow(<RBSheet />);
+        expect(wrapper.find(TouchableOpacity).length).toEqual(1);
+      });
+
+      it("should closeOnPressMask when given prop true", () => {
+        const wrapper = shallow(<RBSheet closeOnPressMask />);
+        wrapper.instance().close = jest.fn();
+        wrapper.find(TouchableOpacity).simulate("Press");
+        expect(wrapper.instance().close).toHaveBeenCalled();
+      });
+
+      it("should not closeOnPressMask when given prop false", () => {
+        const wrapper = shallow(<RBSheet closeOnPressMask={false} />);
+        wrapper.instance().close = jest.fn();
+        wrapper.find(TouchableOpacity).simulate("Press");
+        expect(wrapper.instance().close).not.toHaveBeenCalled();
+      });
+    });
+
+    describe("Modal", () => {
+      it("should render modal", () => {
+        const wrapper = shallow(<RBSheet />);
+        expect(wrapper.find(Modal).length).toEqual(1);
+      });
+    });
+
+    describe("DraggableArea", () => {
+      it("should not render draggable area", () => {
+        const wrapper = shallow(<RBSheet />);
+        expect(wrapper.find(View).length).toEqual(1);
+      });
+
+      it("should render draggable area", () => {
+        const wrapper = shallow(<RBSheet closeOnDragDown />);
+        expect(wrapper.find(View).length).toEqual(3);
+      });
+    });
   });
 
   describe("Method", () => {
@@ -95,44 +135,14 @@ describe("React Native Raw Bottom Sheet", () => {
       wrapper.instance().close();
       expect(onClose).toHaveBeenCalled();
     });
-  });
-
-  describe("Button", () => {
-    it("should render <TouchableOpacity>", () => {
-      const wrapper = shallow(<RBSheet />);
-      expect(wrapper.find(TouchableOpacity).length).toEqual(1);
-    });
-
-    it("should closeOnPressMask when given prop true", () => {
-      const wrapper = shallow(<RBSheet closeOnPressMask />);
-      wrapper.instance().close = jest.fn();
-      wrapper.find(TouchableOpacity).simulate("Press");
-      expect(wrapper.instance().close).toHaveBeenCalled();
-    });
-
-    it("should not closeOnPressMask when given prop false", () => {
-      const wrapper = shallow(<RBSheet closeOnPressMask={false} />);
-      wrapper.instance().close = jest.fn();
-      wrapper.find(TouchableOpacity).simulate("Press");
-      expect(wrapper.instance().close).not.toHaveBeenCalled();
-    });
-  });
-
-  describe("Modal", () => {
-    it("should render <Modal>", () => {
-      const wrapper = shallow(<RBSheet />);
-      expect(wrapper.find(Modal).length).toEqual(1);
-    });
 
     it("should onRequestClose called", () => {
       const mockFn = jest.fn();
       RBSheet.prototype.setModalVisible = mockFn;
-      const wrapper = shallow(<RBSheet />);
       wrapper
         .find(Modal)
         .props()
         .onRequestClose();
-
       expect(mockFn).toHaveBeenCalled();
     });
   });
