@@ -1,0 +1,11 @@
+# OSX
+.DS_Store
+
+# Node Module
+node_modules/
+
+# Jest Test Coverage
+coverage/
+
+# Example
+example/
