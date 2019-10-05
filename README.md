@@ -82,7 +82,7 @@ renderItem = (item, index) => (
         ref={ref => {
           this[RBSheet + index] = ref;
         }}>
-        <YourOwnComponent />
+        <YourOwnComponent onPress={() => this[RBSheet + index].close() />
       </RBSheet>
     </View>
   );
@@ -90,22 +90,23 @@ renderItem = (item, index) => (
 
 ## Props
 
-| Props            | Type     | Description                                    | Default  |
-| ---------------- | -------- | ---------------------------------------------- | -------- |
-| animationType    | string   | Background animation ("none", "fade", "slide") | "none"   |
-| height           | number   | Height of Bottom Sheet                         | 260      |
-| minClosingHeight | number   | Minimum height of Bottom Sheet before close    | 0        |
-| duration         | number   | Duration of Bottom Sheet animation             | 300 (ms) |
-| closeOnDragDown  | boolean  | Use gesture drag down to close Bottom Sheet    | false    |
-| closeOnPressMask | boolean  | Press the area outside to close Bottom Sheet   | true     |
-| onClose          | function | Callback function when Bottom Sheet has closed | null     |
-| customStyles     | object   | Custom style to Bottom Sheet                   | {}       |
+| Props            | Type     | Description                                             | Default  |
+| ---------------- | -------- | ------------------------------------------------------- | -------- |
+| animationType    | string   | Background animation ("none", "fade", "slide")          | "none"   |
+| height           | number   | Height of Bottom Sheet                                  | 260      |
+| minClosingHeight | number   | Minimum height of Bottom Sheet before close             | 0        |
+| duration         | number   | Duration of Bottom Sheet animation                      | 300 (ms) |
+| closeOnDragDown  | boolean  | Use gesture drag down to close Bottom Sheet             | false    |
+| closeOnPressMask | boolean  | Press the area outside to close Bottom Sheet            | true     |
+| closeOnPressBack | boolean  | Press back android to close Bottom Sheet (Android only) | true     |
+| onClose          | function | Callback function when Bottom Sheet has closed          | null     |
+| customStyles     | object   | Custom style to Bottom Sheet                            | {}       |
 
 ### Available Custom Style
 
 ```
 customStyles: {
-  wrapper: {...}, // The Root of Component
+  wrapper: {...}, // The Root of Component (You can change the `backgroundColor` or any styles)
   container: {...}, // The Container of Bottom Sheet
   draggableIcon: {...} // The Draggable Icon (If you set closeOnDragDown to true)
 }
