@@ -9,6 +9,7 @@ declare module "react-native-raw-bottom-sheet" {
     duration?: number;
     closeOnDragDown?: boolean;
     closeOnPressMask?: boolean;
+    closeOnPressBack?: boolean;
     onClose?: () => void;
     customStyles?: {
       wrapper?: StyleProp<ViewStyle>;
