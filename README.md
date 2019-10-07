@@ -77,12 +77,12 @@ export default Example;
 ```jsx
 renderItem = (item, index) => (
     <View>
-      <Button title=`OPEN BOTTOM SHEET-${index}` onPress={() => this[RBSheet + index].open()} />
+      <Button title={`OPEN BOTTOM SHEET-${index}`} onPress={() => this[RBSheet + index].open()} />
       <RBSheet
         ref={ref => {
           this[RBSheet + index] = ref;
         }}>
-        <YourOwnComponent onPress={() => this[RBSheet + index].close() />
+        <YourOwnComponent onPress={() => this[RBSheet + index].close()} />
       </RBSheet>
     </View>
   );
