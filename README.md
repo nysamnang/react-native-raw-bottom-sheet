@@ -6,12 +6,14 @@
 [![Build Status](https://travis-ci.org/nysamnang/react-native-raw-bottom-sheet.svg?branch=master)](https://travis-ci.org/nysamnang/react-native-raw-bottom-sheet)
 
 - Super Lightweight Component
-- Smooth Animation
 - Add Your own Component To Bottom Sheet
 - Customize Whatever You Like
 - Support Drag Down Gesture
 - Support All Orientations
 - Support Both Android And iOS
+- Smooth Animation
+- Zero Configuration
+- Zero dependency
 - Top Search Ranking (react native bottom sheet) at [npms.io](https://npms.io/search?q=react%20native%20bottom%20sheet)
 
 |                                                      Showcase iOS                                                      |                                                    Showcase Android                                                    |
@@ -76,16 +78,17 @@ export default Example;
 
 ```jsx
 renderItem = (item, index) => (
-    <View>
-      <Button title={`OPEN BOTTOM SHEET-${index}`} onPress={() => this[RBSheet + index].open()} />
-      <RBSheet
-        ref={ref => {
-          this[RBSheet + index] = ref;
-        }}>
-        <YourOwnComponent onPress={() => this[RBSheet + index].close()} />
-      </RBSheet>
-    </View>
-  );
+  <View>
+    <Button title={`OPEN BOTTOM SHEET-${index}`} onPress={() => this[RBSheet + index].open()} />
+    <RBSheet
+      ref={ref => {
+        this[RBSheet + index] = ref;
+      }}
+    >
+      <YourOwnComponent onPress={() => this[RBSheet + index].close()} />
+    </RBSheet>
+  </View>
+);
 ```
 
 ## Props
@@ -122,7 +125,7 @@ customStyles: {
 ## Note
 
 - Always set `ref` to `RBSheet` and call each method by using `this.RBSheet.methodName()` like example above.
-- If you want to use `Scrollable Component` like `ScrollView`, `FlatList` or something else inside `RBSheet`, you have to set props `closeOnDragDown` to `false` otherwise it won't work.
+- If you combind `RBSheet` with <a href="https://github.com/kmagiera/react-native-gesture-handler" target="_blank">react-native-gesture-handler</a>, the components inside RBSheet will not fire onPress event on Android [#37](https://github.com/nysamnang/react-native-raw-bottom-sheet/issues/37).
 - The demo source codes are in `example folder`.
 
 ## Give me a Star
