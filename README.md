@@ -34,21 +34,18 @@ yarn add react-native-raw-bottom-sheet
 
 ## Example
 
+#### Class component
+
 ```jsx
 import React, { Component } from "react";
-import { View, Text, Button } from "react-native";
+import { View, Button } from "react-native";
 import RBSheet from "react-native-raw-bottom-sheet";
 
-class Example extends Component {
+export default class Example extends Component {
   render() {
     return (
       <View style={{ flex: 1, justifyContent: "center", alignItems: "center" }}>
-        <Button
-          title="OPEN BOTTOM SHEET"
-          onPress={() => {
-            this.RBSheet.open();
-          }}
-        />
+        <Button title="OPEN BOTTOM SHEET" onPress={() => this.RBSheet.open()} />
         <RBSheet
           ref={ref => {
             this.RBSheet = ref;
@@ -68,13 +65,48 @@ class Example extends Component {
     );
   }
 }
-
-const YourOwnComponent = () => <Text>Your Pretty Component Goes Here</Text>;
-
-export default Example;
 ```
 
-### Dynamic Bottom Sheet
+#### Functional component
+
+```jsx
+import React, { useRef } from "react";
+import { View, Button } from "react-native";
+import RBSheet from "react-native-raw-bottom-sheet";
+
+export default function Example() {
+  const refRBSheet = useRef();
+  return (
+    <View
+      style={{
+        flex: 1,
+        justifyContent: "center",
+        alignItems: "center",
+        backgroundColor: "#000"
+      }}
+    >
+      <Button title="OPEN BOTTOM SHEET" onPress={() => refRBSheet.current.open()} />
+      <RBSheet
+        ref={refRBSheet}
+        closeOnDragDown={true}
+        closeOnPressMask={false}
+        customStyles={{
+          wrapper: {
+            backgroundColor: "transparent"
+          },
+          draggableIcon: {
+            backgroundColor: "#000"
+          }
+        }}
+      >
+        <YourOwnComponent />
+      </RBSheet>
+    </View>
+  );
+}
+```
+
+#### Dynamic Bottom Sheet
 
 ```jsx
 renderItem = (item, index) => (
@@ -124,13 +156,8 @@ customStyles: {
 
 ## Note
 
-- Always set `ref` to `RBSheet` and call each method by using `this.RBSheet.methodName()` like example above.
 - If you combind `RBSheet` with <a href="https://github.com/kmagiera/react-native-gesture-handler" target="_blank">react-native-gesture-handler</a>, the components inside RBSheet will not fire onPress event on Android [#37](https://github.com/nysamnang/react-native-raw-bottom-sheet/issues/37).
 - The demo source codes are in `example folder`.
-
-## Give me a Star
-
-If you think this project is helpful just give me a ⭐️ Star is enough because i don't drink coffee :D
 
 ## License
 
