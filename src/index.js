@@ -114,7 +114,7 @@ class RBSheet extends Component {
           style={[styles.wrapper, customStyles.wrapper]}
         >
           <TouchableOpacity
-            style={styles.mask}
+            style={[styles.mask, customStyles.mask]}
             activeOpacity={1}
             onPress={() => (closeOnPressMask ? this.close() : null)}
           />
@@ -123,7 +123,7 @@ class RBSheet extends Component {
             style={[panStyle, styles.container, { height: animatedHeight }, customStyles.container]}
           >
             {closeOnDragDown && (
-              <View style={styles.draggableContainer}>
+              <View style={[styles.draggableContainer, customStyles.draggableContainer]}>
                 <View style={[styles.draggableIcon, customStyles.draggableIcon]} />
               </View>
             )}
