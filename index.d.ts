@@ -13,7 +13,9 @@ declare module "react-native-raw-bottom-sheet" {
     onClose?: () => void;
     customStyles?: {
       wrapper?: StyleProp<ViewStyle>;
+      mask?: StyleProp<ViewStyle>;
       container?: StyleProp<ViewStyle>;
+      draggableContainer?: StyleProp<ViewStyle>;
       draggableIcon?: StyleProp<ViewStyle>;
     };
   };
