@@ -6,8 +6,7 @@ import {
   Modal,
   TouchableOpacity,
   Animated,
-  PanResponder,
-  Platform
+  PanResponder
 } from "react-native";
 import styles from "./style";
 
@@ -91,7 +90,8 @@ class RBSheet extends Component {
       closeOnPressMask,
       closeOnPressBack,
       children,
-      customStyles
+      customStyles,
+      enabled
     } = this.props;
     const { animatedHeight, pan, modalVisible } = this.state;
     const panStyle = {
@@ -109,7 +109,7 @@ class RBSheet extends Component {
         }}
       >
         <KeyboardAvoidingView
-          enabled={Platform.OS === "ios"}
+          enabled={enabled}
           behavior="padding"
           style={[styles.wrapper, customStyles.wrapper]}
         >
@@ -143,6 +143,7 @@ RBSheet.propTypes = {
   closeOnDragDown: PropTypes.bool,
   closeOnPressMask: PropTypes.bool,
   closeOnPressBack: PropTypes.bool,
+  enabled: PropTypes.bool,
   customStyles: PropTypes.objectOf(PropTypes.object),
   onClose: PropTypes.func,
   children: PropTypes.node
@@ -156,6 +157,7 @@ RBSheet.defaultProps = {
   closeOnDragDown: false,
   closeOnPressMask: true,
   closeOnPressBack: true,
+  enabled: false,
   customStyles: {},
   onClose: null,
   children: <View />
