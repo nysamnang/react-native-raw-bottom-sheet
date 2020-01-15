@@ -6,7 +6,8 @@ import {
   Modal,
   TouchableOpacity,
   Animated,
-  PanResponder
+  PanResponder,
+  Platform
 } from "react-native";
 import styles from "./style";
 
@@ -157,7 +158,7 @@ RBSheet.defaultProps = {
   closeOnDragDown: false,
   closeOnPressMask: true,
   closeOnPressBack: true,
-  keyboardAvoidingViewEnabled: false,
+  keyboardAvoidingViewEnabled: Platform.OS === "ios",
   customStyles: {},
   onClose: null,
   children: <View />
