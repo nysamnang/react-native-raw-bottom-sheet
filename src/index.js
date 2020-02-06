@@ -97,6 +97,15 @@ class RBSheet extends Component {
     const panStyle = {
       transform: pan.getTranslateTransform()
     };
+    const childrenName = children.type.displayName;
+
+    let draggableIcon = (closeOnDragDown && childrenName == 'ScrollView' ? (
+      <View {...this.panResponder.panHandlers} style={styles.draggableContainer}>
+        <View style={[styles.draggableIcon, customStyles.draggableIcon]} />
+      </View>
+    ) : closeOnDragDown ? <View style={styles.draggableContainer}>
+      <View style={[styles.draggableIcon, customStyles.draggableIcon]} />
+    </View> : null)
 
     return (
       <Modal
@@ -118,17 +127,24 @@ class RBSheet extends Component {
             activeOpacity={1}
             onPress={() => (closeOnPressMask ? this.close() : null)}
           />
+        {
+          closeOnDragDown && childrenName == 'ScrollView' ? (
+            <Animated.View
+              style={[panStyle, styles.container, { height: animatedHeight }, customStyles.container]}
+            >
+              {draggableIcon}
+              {children}
+            </Animated.View>
+          ) : (
           <Animated.View
             {...this.panResponder.panHandlers}
             style={[panStyle, styles.container, { height: animatedHeight }, customStyles.container]}
           >
-            {closeOnDragDown && (
-              <View style={styles.draggableContainer}>
-                <View style={[styles.draggableIcon, customStyles.draggableIcon]} />
-              </View>
-            )}
+            {draggableIcon}
             {children}
-          </Animated.View>
+          </Animated.View>)
+        }
+
         </KeyboardAvoidingView>
       </Modal>
     );
