@@ -25,10 +25,25 @@ class RBSheet extends Component {
     this.state = {
       modalVisible: false,
       animatedHeight: new Animated.Value(0),
-      pan: new Animated.ValueXY()
+      pan: new Animated.ValueXY(),
+      hasScrollView: false
     };
 
     this.createPanResponder(props);
+  }
+
+  componentDidMount(){
+    let children = this.props.children;
+    if(children.length > 0){
+      for (var i = 0; i < children.length; i++) {
+        let childrenName = children[i].type ? children[i].type.displayName || null : null;
+        if(childrenName == 'ScrollView'){
+          this.setState({
+            hasScrollView: true
+          });
+        }
+      }
+    }
   }
 
   setModalVisible(visible) {
@@ -93,20 +108,10 @@ class RBSheet extends Component {
       children,
       customStyles
     } = this.props;
-    const { animatedHeight, pan, modalVisible } = this.state;
+    const { animatedHeight, pan, modalVisible, hasScrollView } = this.state;
     const panStyle = {
       transform: pan.getTranslateTransform()
     };
-    let hasScrollView = false;
-
-    if(children.length > 0){
-      for (var i = 0; i < children.length; i++) {
-        let childrenName = children[i].type ? children[i].type.displayName || null : null;
-        if(childrenName == 'ScrollView'){
-          hasScrollView = true;
-        }
-      }
-    }
 
     let draggableIcon = (closeOnDragDown && hasScrollView ? (
       <View {...this.panResponder.panHandlers} style={styles.draggableContainer}>
