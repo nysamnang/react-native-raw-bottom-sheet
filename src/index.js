@@ -97,7 +97,7 @@ class RBSheet extends Component {
     const panStyle = {
       transform: pan.getTranslateTransform()
     };
-    const childrenName = children.type.displayName;
+    const childrenName = children.type ? children.type.displayName || null : null;
 
     let draggableIcon = (closeOnDragDown && childrenName == 'ScrollView' ? (
       <View {...this.panResponder.panHandlers} style={styles.draggableContainer}>
