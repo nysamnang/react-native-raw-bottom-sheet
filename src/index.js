@@ -97,9 +97,18 @@ class RBSheet extends Component {
     const panStyle = {
       transform: pan.getTranslateTransform()
     };
-    const childrenName = children.type ? children.type.displayName || null : null;
+    let hasScrollView = false;
 
-    let draggableIcon = (closeOnDragDown && childrenName == 'ScrollView' ? (
+    if(children.length > 0){
+      for (var i = 0; i < children.length; i++) {
+        let childrenName = children[i].type ? children[i].type.displayName || null : null;
+        if(childrenName == 'ScrollView'){
+          hasScrollView = true;
+        }
+      }
+    }
+
+    let draggableIcon = (closeOnDragDown && hasScrollView ? (
       <View {...this.panResponder.panHandlers} style={styles.draggableContainer}>
         <View style={[styles.draggableIcon, customStyles.draggableIcon]} />
       </View>
@@ -128,7 +137,7 @@ class RBSheet extends Component {
             onPress={() => (closeOnPressMask ? this.close() : null)}
           />
         {
-          closeOnDragDown && childrenName == 'ScrollView' ? (
+          closeOnDragDown && hasScrollView ? (
             <Animated.View
               style={[panStyle, styles.container, { height: animatedHeight }, customStyles.container]}
             >
