@@ -32,10 +32,11 @@ class RBSheet extends Component {
   }
 
   setModalVisible(visible) {
-    const { height, minClosingHeight, duration, onClose } = this.props;
+    const { height, minClosingHeight, duration, onClose, onOpen } = this.props;
     const { animatedHeight, pan } = this.state;
     if (visible) {
       this.setState({ modalVisible: visible });
+      if (typeof onClose === "function") onOpen();
       Animated.timing(animatedHeight, {
         toValue: height,
         duration
@@ -145,6 +146,7 @@ RBSheet.propTypes = {
   closeOnPressBack: PropTypes.bool,
   customStyles: PropTypes.objectOf(PropTypes.object),
   onClose: PropTypes.func,
+  onOpen: PropTypes.func,
   children: PropTypes.node
 };
 
