@@ -19,6 +19,11 @@ const SUPPORTED_ORIENTATIONS = [
   "landscape-right"
 ];
 
+const SUPPORTED_COMPONENTS_CLOSEONDRAGDOWN = [
+  'ScrollView',
+  'FlatList',
+];
+
 class RBSheet extends Component {
   constructor(props) {
     super(props);
@@ -37,7 +42,7 @@ class RBSheet extends Component {
     if(children.length > 0){
       for (var i = 0; i < children.length; i++) {
         let childrenName = children[i].type ? children[i].type.displayName || null : null;
-        if(childrenName == 'ScrollView'){
+        if(SUPPORTED_COMPONENTS_CLOSEONDRAGDOWN.includes(childrenName)){
           this.setState({
             hasScrollView: true
           });
