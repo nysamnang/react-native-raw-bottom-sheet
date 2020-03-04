@@ -118,6 +118,9 @@ class RBSheet extends Component {
             style={styles.mask}
             activeOpacity={1}
             onPress={() => (closeOnPressMask ? this.close() : null)}
+            accessible={!!closeOnPressMask}
+            accessibilityHint={this.props.accessibility?.maskAccessibilityHint}
+            accessibilityRole={this.props.accessibility?.maskAccessibilityRole || 'button'}
           />
           <Animated.View
             {...this.panResponder.panHandlers}
@@ -147,7 +150,11 @@ RBSheet.propTypes = {
   keyboardAvoidingViewEnabled: PropTypes.bool,
   customStyles: PropTypes.objectOf(PropTypes.object),
   onClose: PropTypes.func,
-  children: PropTypes.node
+  children: PropTypes.node,
+  accessibility: PropTypes.shape({
+      maskAccessibilityHint: PropTypes.string,
+      maskAccessibilityRole: PropTypes.string,
+  })
 };
 
 RBSheet.defaultProps = {
