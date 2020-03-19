@@ -135,7 +135,9 @@ renderItem = (item, index) => (
 | closeOnPressMask | boolean  | Press the area outside to close Bottom Sheet            | true     |
 | closeOnPressBack | boolean  | Press back android to close Bottom Sheet (Android only) | true     |
 | onClose          | function | Callback function when Bottom Sheet has closed          | null     |
+| onOpen           | function | Callback function when Bottom Sheet has opened          | null     |
 | customStyles     | object   | Custom style to Bottom Sheet                            | {}       |
+| keyboardAvoidingViewEnabled     | boolean   | Enable KeyboardAvoidingView                            | true       |
 
 ### Available Custom Style
 

@@ -39,7 +39,15 @@ class RBSheet extends Component {
 
   componentDidMount(){
     let children = this.props.children;
-    if(children.length > 0){
+    if( typeof children === "object"  && (children !== null) ){
+      let childrenName = children.type ? children.type.displayName || null : null;
+      if(SUPPORTED_COMPONENTS_CLOSEONDRAGDOWN.includes(childrenName)){
+        this.setState({
+          hasScrollView: true
+        });
+      }
+    }
+    else if(typeof children === 'array' && children.length > 0){
       for (var i = 0; i < children.length; i++) {
         let childrenName = children[i].type ? children[i].type.displayName || null : null;
         if(SUPPORTED_COMPONENTS_CLOSEONDRAGDOWN.includes(childrenName)){
