@@ -31,12 +31,12 @@ class RBSheet extends Component {
     this.createPanResponder(props);
   }
 
-  setModalVisible(visible, additionalData = null) {
+  setModalVisible(visible, props) {
     const { height, minClosingHeight, duration, onClose, onOpen } = this.props;
     const { animatedHeight, pan } = this.state;
     if (visible) {
       this.setState({ modalVisible: visible });
-      if (typeof onOpen === "function") onOpen(additionalData);
+      if (typeof onOpen === "function") onOpen(props);
       Animated.timing(animatedHeight, {
         toValue: height,
         duration
@@ -52,7 +52,7 @@ class RBSheet extends Component {
           animatedHeight: new Animated.Value(0)
         });
 
-        if (typeof onClose === "function") onClose();
+        if (typeof onClose === "function") onClose(props);
       });
     }
   }
@@ -77,12 +77,12 @@ class RBSheet extends Component {
     });
   }
 
-  open(additionnalData) {
-    this.setModalVisible(true, additionnalData);
+  open(props) {
+    this.setModalVisible(true, props);
   }
 
-  close() {
-    this.setModalVisible(false);
+  close(props) {
+    this.setModalVisible(false, props);
   }
 
   render() {
@@ -163,6 +163,7 @@ RBSheet.defaultProps = {
   keyboardAvoidingViewEnabled: Platform.OS === "ios",
   customStyles: {},
   onClose: null,
+  onOpen: null,
   children: <View />
 };
 
