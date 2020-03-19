@@ -137,7 +137,7 @@ renderItem = (item, index) => (
 | onClose          | function | Callback function when Bottom Sheet has closed          | null     |
 | onOpen           | function | Callback function when Bottom Sheet has opened          | null     |
 | customStyles     | object   | Custom style to Bottom Sheet                            | {}       |
-| keyboardAvoidingViewEnabled     | boolean   | Enable KeyboardAvoidingView                            | true       |
+| keyboardAvoidingViewEnabled     | boolean   | Enable KeyboardAvoidingView                            | true (ios)       |
 
 ### Available Custom Style
 
