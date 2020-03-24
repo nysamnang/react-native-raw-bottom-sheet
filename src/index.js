@@ -7,7 +7,8 @@ import {
   TouchableOpacity,
   Animated,
   PanResponder,
-  Platform
+  Platform,
+  Easing
 } from "react-native";
 import styles from "./style";
 
@@ -39,7 +40,8 @@ class RBSheet extends Component {
       if (typeof onOpen === "function") onOpen(props);
       Animated.timing(animatedHeight, {
         toValue: height,
-        duration
+        duration,
+        easing: Easing.out(Easing.exp)
       }).start();
     } else {
       Animated.timing(animatedHeight, {
