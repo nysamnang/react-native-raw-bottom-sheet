@@ -5,6 +5,10 @@
 ](//npmjs.com/package/react-native-raw-bottom-sheet)
 [![Build Status](https://travis-ci.org/nysamnang/react-native-raw-bottom-sheet.svg?branch=master)](https://travis-ci.org/nysamnang/react-native-raw-bottom-sheet)
 
+## Workast: Why we decide it add this repository to our stack?
+The PO decided to make the animation of the bottom sheet more similar to Asana App. To accomplish this purpose, we needed to make a specific change in the react-native-raw-bottom-sheet library. So, we forked the library in our repository to made this changes.
+
+
 - Super Lightweight Component
 - Add Your own Component To Bottom Sheet
 - Customize Whatever You Like
