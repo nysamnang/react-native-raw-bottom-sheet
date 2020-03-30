@@ -93,7 +93,8 @@ class RBSheet extends Component {
       closeOnPressBack,
       children,
       customStyles,
-      keyboardAvoidingViewEnabled
+      keyboardAvoidingViewEnabled,
+      dragFromTop,
     } = this.props;
     const { animatedHeight, pan, modalVisible } = this.state;
     const panStyle = {
@@ -121,11 +122,11 @@ class RBSheet extends Component {
             onPress={() => (closeOnPressMask ? this.close() : null)}
           />
           <Animated.View
-            {...this.panResponder.panHandlers}
+            {...(!dragFromTop && this.panResponder.panHandlers)}
             style={[panStyle, styles.container, { height: animatedHeight }, customStyles.container]}
           >
             {closeOnDragDown && (
-              <View style={styles.draggableContainer}>
+              <View {...(dragFromTop && this.panResponder.panHandlers)} style={styles.draggableContainer}>
                 <View style={[styles.draggableIcon, customStyles.draggableIcon]} />
               </View>
             )}
@@ -149,7 +150,8 @@ RBSheet.propTypes = {
   customStyles: PropTypes.objectOf(PropTypes.object),
   onClose: PropTypes.func,
   onOpen: PropTypes.func,
-  children: PropTypes.node
+  children: PropTypes.node,
+  dragFromTop: PropTypes.bool,
 };
 
 RBSheet.defaultProps = {
@@ -164,7 +166,8 @@ RBSheet.defaultProps = {
   customStyles: {},
   onClose: null,
   onOpen: null,
-  children: <View />
+  children: <View />,
+  dragFromTop: false,
 };
 
 export default RBSheet;
