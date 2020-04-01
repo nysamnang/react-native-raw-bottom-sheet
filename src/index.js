@@ -33,20 +33,20 @@ class RBSheet extends Component {
   }
 
   setModalVisible(visible, props) {
-    const { height, minClosingHeight, duration, onClose, onOpen } = this.props;
+    const { height, minClosingHeight, openDuration, closeDuration, onClose, onOpen } = this.props;
     const { animatedHeight, pan } = this.state;
     if (visible) {
       this.setState({ modalVisible: visible });
       if (typeof onOpen === "function") onOpen(props);
       Animated.timing(animatedHeight, {
         toValue: height,
-        duration,
+        duration: openDuration,
         easing: Easing.out(Easing.exp)
       }).start();
     } else {
       Animated.timing(animatedHeight, {
         toValue: minClosingHeight,
-        duration
+        duration: closeDuration
       }).start(() => {
         pan.setValue({ x: 0, y: 0 });
         this.setState({
@@ -143,7 +143,8 @@ RBSheet.propTypes = {
   animationType: PropTypes.oneOf(["none", "slide", "fade"]),
   height: PropTypes.number,
   minClosingHeight: PropTypes.number,
-  duration: PropTypes.number,
+  openDuration: PropTypes.number,
+  closeDuration: PropTypes.number,
   closeOnDragDown: PropTypes.bool,
   closeOnPressMask: PropTypes.bool,
   closeOnPressBack: PropTypes.bool,
@@ -158,7 +159,8 @@ RBSheet.defaultProps = {
   animationType: "none",
   height: 260,
   minClosingHeight: 0,
-  duration: 300,
+  openDuration: 300,
+  closeDuration: 300,
   closeOnDragDown: false,
   closeOnPressMask: true,
   closeOnPressBack: true,
