@@ -84,6 +84,15 @@ class RBSheet extends Component {
   close(props) {
     this.setModalVisible(false, props);
   }
+  
+  setHeight(newHeight) {
+    const { animatedHeight } = this.state;
+    const { duration } = this.props;
+    Animated.timing(animatedHeight, {
+      toValue: newHeight,
+      duration
+    }).start();
+  }
 
   render() {
     const {
