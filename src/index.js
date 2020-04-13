@@ -73,7 +73,7 @@ class RBSheet extends Component {
         if (height / 4 - gestureState.dy < 0) {
           this.setModalVisible(false);
         } else {
-          Animated.spring(pan, { toValue: { x: 0, y: 0 } }).start();
+          Animated.spring(pan, { toValue: { x: 0, y: 0 }, useNativeDriver: false }).start();
         }
       }
     });
