@@ -165,7 +165,7 @@ RBSheet.defaultProps = {
   height: 260,
   minClosingHeight: 0,
   openDuration: 300,
-  closeDuration: 300,
+  closeDuration: 200,
   closeOnDragDown: false,
   dragFromTopOnly: false,
   closeOnPressMask: true,

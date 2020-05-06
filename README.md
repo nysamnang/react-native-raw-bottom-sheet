@@ -5,10 +5,6 @@
 ](//npmjs.com/package/react-native-raw-bottom-sheet)
 [![Build Status](https://travis-ci.org/nysamnang/react-native-raw-bottom-sheet.svg?branch=master)](https://travis-ci.org/nysamnang/react-native-raw-bottom-sheet)
 
-## Workast: Why we decide it add this repository to our stack?
-The PO decided to make the animation of the bottom sheet more similar to Asana App. To accomplish this purpose, we needed to make a specific change in the react-native-raw-bottom-sheet library. So, we forked the library in our repository to made this changes.
-
-
 - Super Lightweight Component
 - Add Your own Component To Bottom Sheet
 - Customize Whatever You Like
@@ -55,7 +51,7 @@ export default class Example extends Component {
             this.RBSheet = ref;
           }}
           height={300}
-          duration={250}
+          openDuration={250}
           customStyles={{
             container: {
               justifyContent: "center",
@@ -134,7 +130,8 @@ renderItem = (item, index) => (
 | animationType    | string   | Background animation ("none", "fade", "slide")          | "none"   |
 | height           | number   | Height of Bottom Sheet                                  | 260      |
 | minClosingHeight | number   | Minimum height of Bottom Sheet before close             | 0        |
-| duration         | number   | Duration of Bottom Sheet animation                      | 300 (ms) |
+| openDuration     | number   | Open Bottom Sheet animation duration                    | 300 (ms) |
+| closeDuration    | number   | Close Bottom Sheet animation duration                   | 200 (ms) |
 | closeOnDragDown  | boolean  | Use gesture drag down to close Bottom Sheet             | false    |
 | dragFromTopOnly  | boolean  | Drag only the top area of the draggableIcon to close Bottom Sheet instead of the whole content | false    |
 | closeOnPressMask | boolean  | Press the area outside to close Bottom Sheet            | true     |
