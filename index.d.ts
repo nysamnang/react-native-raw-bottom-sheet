@@ -6,8 +6,10 @@ declare module "react-native-raw-bottom-sheet" {
     animationType?: "none" | "fade" | "slide";
     height?: number;
     minClosingHeight?: number;
-    duration?: number;
+    openDuration?: number;
+    closeDuration?: number;
     closeOnDragDown?: boolean;
+    dragFromTopOnly?: boolean;
     closeOnPressMask?: boolean;
     closeOnPressBack?: boolean;
     onClose?: () => void;

@@ -7,7 +7,8 @@ import {
   TouchableOpacity,
   Animated,
   PanResponder,
-  Platform
+  Platform,
+  Easing
 } from "react-native";
 import styles from "./style";
 
@@ -32,7 +33,7 @@ class RBSheet extends Component {
   }
 
   setModalVisible(visible, props) {
-    const { height, minClosingHeight, duration, onClose, onOpen } = this.props;
+    const { height, minClosingHeight, openDuration, closeDuration, onClose, onOpen } = this.props;
     const { animatedHeight, pan } = this.state;
     if (visible) {
       this.setState({ modalVisible: visible });
@@ -40,13 +41,14 @@ class RBSheet extends Component {
       Animated.timing(animatedHeight, {
         useNativeDriver: false,
         toValue: height,
-        duration
+        duration: openDuration,
+        easing: Easing.out(Easing.exp)
       }).start();
     } else {
       Animated.timing(animatedHeight, {
         useNativeDriver: false,
         toValue: minClosingHeight,
-        duration
+        duration: closeDuration
       }).start(() => {
         pan.setValue({ x: 0, y: 0 });
         this.setState({
@@ -91,6 +93,7 @@ class RBSheet extends Component {
     const {
       animationType,
       closeOnDragDown,
+      dragFromTopOnly,
       closeOnPressMask,
       closeOnPressBack,
       children,
@@ -123,11 +126,14 @@ class RBSheet extends Component {
             onPress={() => (closeOnPressMask ? this.close() : null)}
           />
           <Animated.View
-            {...this.panResponder.panHandlers}
+            {...(!dragFromTopOnly && this.panResponder.panHandlers)}
             style={[panStyle, styles.container, { height: animatedHeight }, customStyles.container]}
           >
             {closeOnDragDown && (
-              <View style={styles.draggableContainer}>
+              <View
+                {...(dragFromTopOnly && this.panResponder.panHandlers)}
+                style={styles.draggableContainer}
+              >
                 <View style={[styles.draggableIcon, customStyles.draggableIcon]} />
               </View>
             )}
@@ -143,9 +149,11 @@ RBSheet.propTypes = {
   animationType: PropTypes.oneOf(["none", "slide", "fade"]),
   height: PropTypes.number,
   minClosingHeight: PropTypes.number,
-  duration: PropTypes.number,
+  openDuration: PropTypes.number,
+  closeDuration: PropTypes.number,
   closeOnDragDown: PropTypes.bool,
   closeOnPressMask: PropTypes.bool,
+  dragFromTopOnly: PropTypes.bool,
   closeOnPressBack: PropTypes.bool,
   keyboardAvoidingViewEnabled: PropTypes.bool,
   customStyles: PropTypes.objectOf(PropTypes.object),
@@ -158,8 +166,10 @@ RBSheet.defaultProps = {
   animationType: "none",
   height: 260,
   minClosingHeight: 0,
-  duration: 300,
+  openDuration: 300,
+  closeDuration: 200,
   closeOnDragDown: false,
+  dragFromTopOnly: false,
   closeOnPressMask: true,
   closeOnPressBack: true,
   keyboardAvoidingViewEnabled: Platform.OS === "ios",

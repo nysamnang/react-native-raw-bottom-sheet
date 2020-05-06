@@ -125,7 +125,7 @@ class App extends Component {
           }}
           height={60}
           animationType="none"
-          duration={200}
+          openDuration={200}
           customStyles={{
             wrapper: { backgroundColor: "#fff" }
           }}

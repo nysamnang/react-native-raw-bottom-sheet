@@ -18,7 +18,7 @@ describe("React Native Raw Bottom Sheet", () => {
         <RBSheet
           height={300}
           minClosingHeight={100}
-          duration={350}
+          openDuration={350}
           closeOnSwipeDown={false}
           closeOnPressMask={false}
           customStyles={{
