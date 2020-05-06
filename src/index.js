@@ -89,12 +89,12 @@ class RBSheet extends Component {
     const {
       animationType,
       closeOnDragDown,
+      dragFromTopOnly,
       closeOnPressMask,
       closeOnPressBack,
       children,
       customStyles,
-      keyboardAvoidingViewEnabled,
-      dragFromTop,
+      keyboardAvoidingViewEnabled
     } = this.props;
     const { animatedHeight, pan, modalVisible } = this.state;
     const panStyle = {
@@ -122,11 +122,14 @@ class RBSheet extends Component {
             onPress={() => (closeOnPressMask ? this.close() : null)}
           />
           <Animated.View
-            {...(!dragFromTop && this.panResponder.panHandlers)}
+            {...(!dragFromTopOnly && this.panResponder.panHandlers)}
             style={[panStyle, styles.container, { height: animatedHeight }, customStyles.container]}
           >
             {closeOnDragDown && (
-              <View {...(dragFromTop && this.panResponder.panHandlers)} style={styles.draggableContainer}>
+              <View
+                {...(dragFromTopOnly && this.panResponder.panHandlers)}
+                style={styles.draggableContainer}
+              >
                 <View style={[styles.draggableIcon, customStyles.draggableIcon]} />
               </View>
             )}
@@ -145,13 +148,13 @@ RBSheet.propTypes = {
   duration: PropTypes.number,
   closeOnDragDown: PropTypes.bool,
   closeOnPressMask: PropTypes.bool,
+  dragFromTopOnly: PropTypes.bool,
   closeOnPressBack: PropTypes.bool,
   keyboardAvoidingViewEnabled: PropTypes.bool,
   customStyles: PropTypes.objectOf(PropTypes.object),
   onClose: PropTypes.func,
   onOpen: PropTypes.func,
-  children: PropTypes.node,
-  dragFromTop: PropTypes.bool,
+  children: PropTypes.node
 };
 
 RBSheet.defaultProps = {
@@ -160,14 +163,14 @@ RBSheet.defaultProps = {
   minClosingHeight: 0,
   duration: 300,
   closeOnDragDown: false,
+  dragFromTopOnly: false,
   closeOnPressMask: true,
   closeOnPressBack: true,
   keyboardAvoidingViewEnabled: Platform.OS === "ios",
   customStyles: {},
   onClose: null,
   onOpen: null,
-  children: <View />,
-  dragFromTop: false,
+  children: <View />
 };
 
 export default RBSheet;

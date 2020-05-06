@@ -8,6 +8,7 @@ declare module "react-native-raw-bottom-sheet" {
     minClosingHeight?: number;
     duration?: number;
     closeOnDragDown?: boolean;
+    dragFromTopOnly?: boolean;
     closeOnPressMask?: boolean;
     closeOnPressBack?: boolean;
     onClose?: () => void;

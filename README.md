@@ -132,12 +132,13 @@ renderItem = (item, index) => (
 | minClosingHeight | number   | Minimum height of Bottom Sheet before close             | 0        |
 | duration         | number   | Duration of Bottom Sheet animation                      | 300 (ms) |
 | closeOnDragDown  | boolean  | Use gesture drag down to close Bottom Sheet             | false    |
+| dragFromTopOnly  | boolean  | Drag only the top area of the draggableIcon to close Bottom Sheet instead of the whole content | false    |
 | closeOnPressMask | boolean  | Press the area outside to close Bottom Sheet            | true     |
 | closeOnPressBack | boolean  | Press back android to close Bottom Sheet (Android only) | true     |
 | onClose          | function | Callback function when Bottom Sheet has closed          | null     |
 | onOpen           | function | Callback function when Bottom Sheet has opened          | null     |
 | customStyles     | object   | Custom style to Bottom Sheet                            | {}       |
-| keyboardAvoidingViewEnabled     | boolean   | Enable KeyboardAvoidingView                            | true (ios)       |
+| keyboardAvoidingViewEnabled     | boolean   | Enable KeyboardAvoidingView             | true (ios) |
 
 ### Available Custom Style
 
