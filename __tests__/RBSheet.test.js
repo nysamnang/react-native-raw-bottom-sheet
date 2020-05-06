@@ -1,5 +1,5 @@
 import React from "react";
-import { View, Text, Modal, TouchableOpacity } from "react-native";
+import { View, Text, Modal, TouchableOpacity, Animated } from "react-native";
 import Enzyme, { shallow } from "enzyme";
 import Adapter from "enzyme-adapter-react-16";
 import RBSheet from "../src";
@@ -89,40 +89,39 @@ describe("React Native Raw Bottom Sheet", () => {
   });
 
   describe("Method", () => {
+    let wrapper;
+    let setModalVisible;
+    beforeEach(() => {
+      wrapper = shallow(<RBSheet />);
+      setModalVisible = jest.spyOn(RBSheet.prototype, "setModalVisible");
+      Animated.timing = (value, config) => {
+        return {
+          start: callback => {
+            value.setValue(config.toValue);
+            if (typeof callback === "function") callback();
+          }
+        };
+      };
+    });
+
     it("should createPanResponder called", () => {
-      const wrapper = shallow(<RBSheet />);
+      wrapper = shallow(<RBSheet />);
       const createPanResponder = jest.spyOn(RBSheet.prototype, "createPanResponder");
       wrapper.instance().createPanResponder({ closeOnSwipeDown: true, height: 300 });
       expect(createPanResponder).toHaveBeenCalledTimes(1);
-    });
-
-    let wrapper;
-    let setModalVisible;
-    const onClose = jest.fn();
-    beforeEach(() => {
-      wrapper = shallow(<RBSheet onClose={onClose} />);
-      setModalVisible = jest.spyOn(RBSheet.prototype, "setModalVisible");
-      jest.useFakeTimers(); // https://github.com/facebook/jest/issues/4359
-      jest.mock("Animated", () => {
-        const ActualAnimated = require.requireActual("Animated");
-        return {
-          ...ActualAnimated,
-          timing: (value, config) => {
-            return {
-              start: callback => {
-                value.setValue(config.toValue);
-                if (typeof callback === "function") callback();
-              }
-            };
-          }
-        };
-      });
     });
 
     it("should method open called", () => {
       wrapper.instance().open();
       expect(setModalVisible).toHaveBeenCalled();
       expect(wrapper.state().modalVisible).toBe(true);
+    });
+
+    it("should onOpen callback function called", () => {
+      const onOpen = jest.fn();
+      wrapper = shallow(<RBSheet onOpen={onOpen} />);
+      wrapper.instance().open();
+      expect(onOpen).toHaveBeenCalled();
     });
 
     it("should method close called", () => {
@@ -132,6 +131,8 @@ describe("React Native Raw Bottom Sheet", () => {
     });
 
     it("should onClose callback function called", () => {
+      const onClose = jest.fn();
+      wrapper = shallow(<RBSheet onClose={onClose} />);
       wrapper.instance().close();
       expect(onClose).toHaveBeenCalled();
     });
