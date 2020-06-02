@@ -96,7 +96,8 @@ class RBSheet extends Component {
       closeOnPressBack,
       children,
       customStyles,
-      keyboardAvoidingViewEnabled
+      keyboardAvoidingViewEnabled,
+      customModalProps
     } = this.props;
     const { animatedHeight, pan, modalVisible } = this.state;
     const panStyle = {
@@ -112,6 +113,7 @@ class RBSheet extends Component {
         onRequestClose={() => {
           if (closeOnPressBack) this.setModalVisible(false);
         }}
+        {...customModalProps}
       >
         <KeyboardAvoidingView
           enabled={keyboardAvoidingViewEnabled}
@@ -155,6 +157,7 @@ RBSheet.propTypes = {
   closeOnPressBack: PropTypes.bool,
   keyboardAvoidingViewEnabled: PropTypes.bool,
   customStyles: PropTypes.objectOf(PropTypes.object),
+  customModalProps: PropTypes.objectOf(PropTypes.any),
   onClose: PropTypes.func,
   onOpen: PropTypes.func,
   children: PropTypes.node
@@ -172,6 +175,7 @@ RBSheet.defaultProps = {
   closeOnPressBack: true,
   keyboardAvoidingViewEnabled: Platform.OS === "ios",
   customStyles: {},
+  customModalProps: {},
   onClose: null,
   onOpen: null,
   children: <View />
