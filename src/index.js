@@ -60,10 +60,15 @@ class RBSheet extends Component {
   }
 
   createPanResponder(props) {
-    const { closeOnDragDown, height } = props;
+    const { closeOnDragDown, closeOnTouchablesDragDown, height } = props;
     const { pan } = this.state;
     this.panResponder = PanResponder.create({
       onStartShouldSetPanResponder: () => closeOnDragDown,
+      onMoveShouldSetPanResponder: (e, gestureState) => (
+        (closeOnTouchablesDragDown && closeOnDragDown)
+        && (Math.abs(gestureState.dx) >= 5 
+        || Math.abs(gestureState.dy) >= 5)
+      ),
       onPanResponderMove: (e, gestureState) => {
         if (gestureState.dy > 0) {
           Animated.event([null, { dy: pan.y }], { useNativeDriver: false })(e, gestureState);
@@ -150,6 +155,7 @@ RBSheet.propTypes = {
   openDuration: PropTypes.number,
   closeDuration: PropTypes.number,
   closeOnDragDown: PropTypes.bool,
+  closeOnTouchablesDragDown: PropTypes.bool,
   closeOnPressMask: PropTypes.bool,
   dragFromTopOnly: PropTypes.bool,
   closeOnPressBack: PropTypes.bool,
@@ -167,6 +173,7 @@ RBSheet.defaultProps = {
   openDuration: 300,
   closeDuration: 200,
   closeOnDragDown: false,
+  closeOnTouchablesDragDown: false,
   dragFromTopOnly: false,
   closeOnPressMask: true,
   closeOnPressBack: true,
