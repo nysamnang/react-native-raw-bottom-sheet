@@ -125,20 +125,21 @@ renderItem = (item, index) => (
 
 ## Props
 
-| Props            | Type     | Description                                             | Default  |
-| ---------------- | -------- | ------------------------------------------------------- | -------- |
-| animationType    | string   | Background animation ("none", "fade", "slide")          | "none"   |
-| height           | number   | Height of Bottom Sheet                                  | 260      |
-| minClosingHeight | number   | Minimum height of Bottom Sheet before close             | 0        |
-| openDuration     | number   | Open Bottom Sheet animation duration                    | 300 (ms) |
-| closeDuration    | number   | Close Bottom Sheet animation duration                   | 200 (ms) |
-| closeOnDragDown  | boolean  | Use gesture drag down to close Bottom Sheet             | false    |
-| dragFromTopOnly  | boolean  | Drag only the top area of the draggableIcon to close Bottom Sheet instead of the whole content | false    |
-| closeOnPressMask | boolean  | Press the area outside to close Bottom Sheet            | true     |
-| closeOnPressBack | boolean  | Press back android to close Bottom Sheet (Android only) | true     |
-| onClose          | function | Callback function when Bottom Sheet has closed          | null     |
-| onOpen           | function | Callback function when Bottom Sheet has opened          | null     |
-| customStyles     | object   | Custom style to Bottom Sheet                            | {}       |
+| Props                      | Type     | Description                                             | Default  |
+| ---------------------------| -------- | ------------------------------------------------------- | -------- |
+| animationType              | string   | Background animation ("none", "fade", "slide")          | "none"   |
+| height                     | number   | Height of Bottom Sheet                                  | 260      |
+| minClosingHeight           | number   | Minimum height of Bottom Sheet before close             | 0        |
+| openDuration               | number   | Open Bottom Sheet animation duration                    | 300 (ms) |
+| closeDuration              | number   | Close Bottom Sheet animation duration                   | 200 (ms) |
+| closeOnDragDown            | boolean  | Use gesture drag down to close Bottom Sheet             | false    |
+| closeOnTouchablesDragDown  | boolean  | Use gesture drag down on touchable components to close Bottom Sheet<br/> (Doesn't work for touchable components inside a scrollView) <br/> (closeOnDragDown must be enabled for this to work)            | false    |
+| dragFromTopOnly            | boolean  | Drag only the top area of the draggableIcon to close Bottom Sheet instead of the whole content | false    |
+| closeOnPressMask           | boolean  | Press the area outside to close Bottom Sheet            | true     |
+| closeOnPressBack           | boolean  | Press back android to close Bottom Sheet (Android only) | true     |
+| onClose                    | function | Callback function when Bottom Sheet has closed          | null     |
+| onOpen                     | function | Callback function when Bottom Sheet has opened          | null     |
+| customStyles               | object   | Custom style to Bottom Sheet                            | {}       |
 | keyboardAvoidingViewEnabled     | boolean   | Enable KeyboardAvoidingView             | true (ios) |
 
 ### Available Custom Style
