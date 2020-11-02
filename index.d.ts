@@ -25,5 +25,6 @@ declare module "react-native-raw-bottom-sheet" {
   export default class RBSheet extends Component<RBSheetProps> {
     open(): void;
     close(): void;
+    snapTo(): void;
   }
 }

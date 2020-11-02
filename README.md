@@ -157,6 +157,7 @@ customStyles: {
 | ----------- | ------------------ |
 | open        | Open Bottom Sheet  |
 | close       | Close Bottom Sheet |
+| snapTo      | Animate Height     |
 
 ## Note
 
