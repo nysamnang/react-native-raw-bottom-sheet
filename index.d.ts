@@ -14,6 +14,7 @@ declare module "react-native-raw-bottom-sheet" {
     closeOnPressBack?: boolean;
     onClose?: () => void;
     onOpen?: () => void;
+    renderHeader?: () => React.ReactNode;
     customStyles?: {
       wrapper?: StyleProp<ViewStyle>;
       container?: StyleProp<ViewStyle>;
