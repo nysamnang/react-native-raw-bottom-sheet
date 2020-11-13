@@ -36,12 +36,13 @@ class RBSheet extends Component {
     const { animatedHeight, pan } = this.state;
     if (visible) {
       this.setState({ modalVisible: visible });
-      if (typeof onOpen === "function") onOpen(props);
       Animated.timing(animatedHeight, {
         useNativeDriver: false,
         toValue: height,
         duration: openDuration
-      }).start();
+      }).start(() => {
+        if (typeof onOpen === "function") onOpen(props);
+      });
     } else {
       Animated.timing(animatedHeight, {
         useNativeDriver: false,
