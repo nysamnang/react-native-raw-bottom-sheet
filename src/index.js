@@ -7,7 +7,8 @@ import {
   TouchableOpacity,
   Animated,
   PanResponder,
-  Platform
+  Platform,
+  ScrollView
 } from "react-native";
 import styles from "./style";
 
@@ -108,7 +109,8 @@ class RBSheet extends Component {
       children,
       customStyles,
       keyboardAvoidingViewEnabled,
-      renderHeader
+      renderHeader,
+      enabledInnerScrolling
     } = this.props;
     const { animatedHeight, pan, modalVisible } = this.state;
     const panStyle = {
@@ -141,18 +143,18 @@ class RBSheet extends Component {
             </Animated.View>
           )}
           <Animated.View
-            {...(!dragFromTopOnly && this.panResponder.panHandlers)}
+            {...(!dragFromTopOnly && !enabledInnerScrolling && this.panResponder.panHandlers)}
             style={[panStyle, styles.container, { height: animatedHeight }, customStyles.container]}
           >
             {closeOnDragDown && (
               <View
-                {...(dragFromTopOnly && this.panResponder.panHandlers)}
+                {...((enabledInnerScrolling ? !dragFromTopOnly : dragFromTopOnly) && this.panResponder.panHandlers)}
                 style={styles.draggableContainer}
               >
                 <View style={[styles.draggableIcon, customStyles.draggableIcon]} />
               </View>
             )}
-            {children}
+            {enabledInnerScrolling ? <ScrollView>{children}</ScrollView> : children}
           </Animated.View>
         </KeyboardAvoidingView>
       </Modal>
@@ -175,7 +177,8 @@ RBSheet.propTypes = {
   onClose: PropTypes.func,
   onOpen: PropTypes.func,
   renderHeader: PropTypes.func,
-  children: PropTypes.node
+  children: PropTypes.node,
+  enabledInnerScrolling: PropTypes.bool
 };
 
 RBSheet.defaultProps = {
@@ -193,7 +196,8 @@ RBSheet.defaultProps = {
   onClose: null,
   onOpen: null,
   renderHeader: null,
-  children: <View />
+  children: <View />,
+  enabledInnerScrolling: false
 };
 
 export default RBSheet;
