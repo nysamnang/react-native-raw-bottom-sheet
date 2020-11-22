@@ -115,7 +115,8 @@ class RBSheet extends Component {
       >
         <KeyboardAvoidingView
           enabled={keyboardAvoidingViewEnabled}
-          behavior="padding"
+          keyboardVerticalOffset={Platform.select({ios: 0, android: 40})}
+          behavior= {(Platform.OS === 'ios')? "padding" : 'height'}
           style={[styles.wrapper, customStyles.wrapper]}
         >
           <TouchableOpacity
