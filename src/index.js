@@ -154,7 +154,7 @@ class RBSheet extends Component {
                 <View style={[styles.draggableIcon, customStyles.draggableIcon]} />
               </View>
             )}
-            {enabledInnerScrolling ? <ScrollView>{children}</ScrollView> : children}
+            {enabledInnerScrolling ? <ScrollView contentContainerStyle={{ flexGrow:1 }} showsVerticalScrollIndicator={false}>{children}</ScrollView> : children}
           </Animated.View>
         </KeyboardAvoidingView>
       </Modal>
