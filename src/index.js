@@ -110,7 +110,8 @@ class RBSheet extends Component {
       customStyles,
       keyboardAvoidingViewEnabled,
       renderHeader,
-      enabledInnerScrolling
+      enabledInnerScrolling,
+      closeButton
     } = this.props;
     const { animatedHeight, pan, modalVisible } = this.state;
     const panStyle = {
@@ -132,6 +133,7 @@ class RBSheet extends Component {
           behavior="padding"
           style={[styles.wrapper, customStyles.wrapper]}
         >
+          {closeButton}
           <TouchableOpacity
             style={styles.mask}
             activeOpacity={1}
@@ -178,7 +180,8 @@ RBSheet.propTypes = {
   onOpen: PropTypes.func,
   renderHeader: PropTypes.func,
   children: PropTypes.node,
-  enabledInnerScrolling: PropTypes.bool
+  enabledInnerScrolling: PropTypes.bool,
+  closeButton: PropTypes.node
 };
 
 RBSheet.defaultProps = {
@@ -197,7 +200,8 @@ RBSheet.defaultProps = {
   onOpen: null,
   renderHeader: null,
   children: <View />,
-  enabledInnerScrolling: false
+  enabledInnerScrolling: false,
+  closeButton: <View />
 };
 
 export default RBSheet;
