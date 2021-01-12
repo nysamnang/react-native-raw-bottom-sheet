@@ -107,7 +107,8 @@ class RBSheet extends Component {
       closeOnPressBack,
       children,
       customStyles,
-      keyboardAvoidingViewEnabled
+      keyboardAvoidingViewEnabled,
+      closeButton
     } = this.props;
     const { animatedHeight, pan, modalVisible } = this.state;
     const panStyle = {
@@ -129,6 +130,7 @@ class RBSheet extends Component {
           behavior="padding"
           style={[styles.wrapper, customStyles.wrapper]}
         >
+          {closeButton}
           <TouchableOpacity
             style={styles.mask}
             activeOpacity={1}
@@ -168,7 +170,8 @@ RBSheet.propTypes = {
   customStyles: PropTypes.objectOf(PropTypes.object),
   onClose: PropTypes.func,
   onOpen: PropTypes.func,
-  children: PropTypes.node
+  children: PropTypes.node,
+  closeButton: PropTypes.node
 };
 
 RBSheet.defaultProps = {
@@ -185,7 +188,8 @@ RBSheet.defaultProps = {
   customStyles: {},
   onClose: null,
   onOpen: null,
-  children: <View />
+  children: <View />,
+  closeButton: <View />
 };
 
 export default RBSheet;
