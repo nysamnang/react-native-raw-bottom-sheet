@@ -140,6 +140,8 @@ renderItem = (item, index) => (
 | onOpen           | function | Callback function when Bottom Sheet has opened          | null     |
 | customStyles     | object   | Custom style to Bottom Sheet                            | {}       |
 | keyboardAvoidingViewEnabled     | boolean   | Enable KeyboardAvoidingView             | true (ios) |
+| renderHeader     | function | Method for rendering non-scrollable header of bottom sheet. | null     |
+| enabledInnerScrolling     | boolean | Enable scrolling inner sheet    | false     |
 
 ### Available Custom Style
 

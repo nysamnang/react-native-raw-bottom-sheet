@@ -7,7 +7,8 @@ import {
   TouchableOpacity,
   Animated,
   PanResponder,
-  Platform
+  Platform,
+  ScrollView
 } from "react-native";
 import styles from "./style";
 
@@ -108,6 +109,8 @@ class RBSheet extends Component {
       children,
       customStyles,
       keyboardAvoidingViewEnabled,
+      renderHeader,
+      enabledInnerScrolling,
       closeButton
     } = this.props;
     const { animatedHeight, pan, modalVisible } = this.state;
@@ -136,19 +139,24 @@ class RBSheet extends Component {
             activeOpacity={1}
             onPress={() => (closeOnPressMask ? this.close() : null)}
           />
+          {renderHeader && (
+            <Animated.View style={[panStyle]}>
+              {renderHeader()}
+            </Animated.View>
+          )}
           <Animated.View
-            {...(!dragFromTopOnly && this.panResponder.panHandlers)}
+            {...(!dragFromTopOnly && !enabledInnerScrolling && this.panResponder.panHandlers)}
             style={[panStyle, styles.container, { height: animatedHeight }, customStyles.container]}
           >
             {closeOnDragDown && (
               <View
-                {...(dragFromTopOnly && this.panResponder.panHandlers)}
+                {...((enabledInnerScrolling ? !dragFromTopOnly : dragFromTopOnly) && this.panResponder.panHandlers)}
                 style={styles.draggableContainer}
               >
                 <View style={[styles.draggableIcon, customStyles.draggableIcon]} />
               </View>
             )}
-            {children}
+            {enabledInnerScrolling ? <ScrollView contentContainerStyle={{ flexGrow:1 }} showsVerticalScrollIndicator={false}>{children}</ScrollView> : children}
           </Animated.View>
         </KeyboardAvoidingView>
       </Modal>
@@ -170,7 +178,9 @@ RBSheet.propTypes = {
   customStyles: PropTypes.objectOf(PropTypes.object),
   onClose: PropTypes.func,
   onOpen: PropTypes.func,
+  renderHeader: PropTypes.func,
   children: PropTypes.node,
+  enabledInnerScrolling: PropTypes.bool,
   closeButton: PropTypes.node
 };
 
@@ -188,7 +198,9 @@ RBSheet.defaultProps = {
   customStyles: {},
   onClose: null,
   onOpen: null,
+  renderHeader: null,
   children: <View />,
+  enabledInnerScrolling: false,
   closeButton: <View />
 };
 
