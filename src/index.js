@@ -139,24 +139,30 @@ class RBSheet extends Component {
             activeOpacity={1}
             onPress={() => (closeOnPressMask ? this.close() : null)}
           />
-          {renderHeader && (
-            <Animated.View style={[panStyle]}>
-              {renderHeader()}
-            </Animated.View>
-          )}
+          {renderHeader && <Animated.View style={[panStyle]}>{renderHeader()}</Animated.View>}
           <Animated.View
             {...(!dragFromTopOnly && !enabledInnerScrolling && this.panResponder.panHandlers)}
             style={[panStyle, styles.container, { height: animatedHeight }, customStyles.container]}
           >
             {closeOnDragDown && (
               <View
-                {...((enabledInnerScrolling ? !dragFromTopOnly : dragFromTopOnly) && this.panResponder.panHandlers)}
+                {...((enabledInnerScrolling ? !dragFromTopOnly : dragFromTopOnly) &&
+                  this.panResponder.panHandlers)}
                 style={styles.draggableContainer}
               >
                 <View style={[styles.draggableIcon, customStyles.draggableIcon]} />
               </View>
             )}
-            {enabledInnerScrolling ? <ScrollView contentContainerStyle={{ flexGrow:1 }} showsVerticalScrollIndicator={false}>{children}</ScrollView> : children}
+            {enabledInnerScrolling ? (
+              <ScrollView
+                contentContainerStyle={{ flexGrow: 1 }}
+                showsVerticalScrollIndicator={false}
+              >
+                {children}
+              </ScrollView>
+            ) : (
+              children
+            )}
           </Animated.View>
         </KeyboardAvoidingView>
       </Modal>
