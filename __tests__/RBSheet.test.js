@@ -146,5 +146,11 @@ describe("React Native Raw Bottom Sheet", () => {
         .onRequestClose();
       expect(mockFn).toHaveBeenCalled();
     });
+
+    it("should method snapTo called", () => {
+      const snapTo = jest.spyOn(RBSheet.prototype, "snapTo");
+      wrapper.instance().snapTo({ height: 580, duration: 200 });
+      expect(snapTo).toHaveBeenCalledTimes(1);
+    });
   });
 });

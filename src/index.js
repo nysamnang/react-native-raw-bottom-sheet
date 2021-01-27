@@ -7,7 +7,8 @@ import {
   TouchableOpacity,
   Animated,
   PanResponder,
-  Platform
+  Platform,
+  ScrollView
 } from "react-native";
 import styles from "./style";
 
@@ -36,12 +37,13 @@ class RBSheet extends Component {
     const { animatedHeight, pan } = this.state;
     if (visible) {
       this.setState({ modalVisible: visible });
-      if (typeof onOpen === "function") onOpen(props);
       Animated.timing(animatedHeight, {
         useNativeDriver: false,
         toValue: height,
         duration: openDuration
-      }).start();
+      }).start(() => {
+        if (typeof onOpen === "function") onOpen(props);
+      });
     } else {
       Animated.timing(animatedHeight, {
         useNativeDriver: false,
@@ -87,6 +89,16 @@ class RBSheet extends Component {
     this.setModalVisible(false, props);
   }
 
+  snapTo(props) {
+    const { animatedHeight } = this.state;
+    const { height, duration = 200 } = props;
+    Animated.timing(animatedHeight, {
+      useNativeDriver: false,
+      toValue: height,
+      duration
+    }).start();
+  }
+
   render() {
     const {
       animationType,
@@ -96,7 +108,10 @@ class RBSheet extends Component {
       closeOnPressBack,
       children,
       customStyles,
-      keyboardAvoidingViewEnabled
+      keyboardAvoidingViewEnabled,
+      renderHeader,
+      enabledInnerScrolling,
+      closeButton
     } = this.props;
     const { animatedHeight, pan, modalVisible } = this.state;
     const panStyle = {
@@ -118,24 +133,36 @@ class RBSheet extends Component {
           behavior="padding"
           style={[styles.wrapper, customStyles.wrapper]}
         >
+          {closeButton}
           <TouchableOpacity
             style={styles.mask}
             activeOpacity={1}
             onPress={() => (closeOnPressMask ? this.close() : null)}
           />
+          {renderHeader && <Animated.View style={[panStyle]}>{renderHeader()}</Animated.View>}
           <Animated.View
-            {...(!dragFromTopOnly && this.panResponder.panHandlers)}
+            {...(!dragFromTopOnly && !enabledInnerScrolling && this.panResponder.panHandlers)}
             style={[panStyle, styles.container, { height: animatedHeight }, customStyles.container]}
           >
             {closeOnDragDown && (
               <View
-                {...(dragFromTopOnly && this.panResponder.panHandlers)}
+                {...((enabledInnerScrolling ? !dragFromTopOnly : dragFromTopOnly) &&
+                  this.panResponder.panHandlers)}
                 style={styles.draggableContainer}
               >
                 <View style={[styles.draggableIcon, customStyles.draggableIcon]} />
               </View>
             )}
-            {children}
+            {enabledInnerScrolling ? (
+              <ScrollView
+                contentContainerStyle={{ flexGrow: 1 }}
+                showsVerticalScrollIndicator={false}
+              >
+                {children}
+              </ScrollView>
+            ) : (
+              children
+            )}
           </Animated.View>
         </KeyboardAvoidingView>
       </Modal>
@@ -157,7 +184,10 @@ RBSheet.propTypes = {
   customStyles: PropTypes.objectOf(PropTypes.object),
   onClose: PropTypes.func,
   onOpen: PropTypes.func,
-  children: PropTypes.node
+  renderHeader: PropTypes.func,
+  children: PropTypes.node,
+  enabledInnerScrolling: PropTypes.bool,
+  closeButton: PropTypes.node
 };
 
 RBSheet.defaultProps = {
@@ -174,7 +204,10 @@ RBSheet.defaultProps = {
   customStyles: {},
   onClose: null,
   onOpen: null,
-  children: <View />
+  renderHeader: null,
+  children: <View />,
+  enabledInnerScrolling: false,
+  closeButton: <View />
 };
 
 export default RBSheet;
