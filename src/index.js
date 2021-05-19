@@ -31,6 +31,19 @@ class RBSheet extends Component {
     this.createPanResponder(props);
   }
 
+  componentDidUpdate(prevProps) {
+    const { height: prevHeight } = prevProps;
+    const { height, openDuration, closeDuration } = this.props;
+    const { modalVisible, animatedHeight } = this.state;
+    if (height !== prevHeight && modalVisible) {
+      Animated.timing(animatedHeight, {
+        useNativeDriver: false,
+        toValue: height,
+        duration: height < prevHeight ? closeDuration : openDuration,
+      }).start();
+    }
+  }
+
   setModalVisible(visible, props) {
     const { height, minClosingHeight, openDuration, closeDuration, onClose, onOpen } = this.props;
     const { animatedHeight, pan } = this.state;
