@@ -25,7 +25,8 @@ class RBSheet extends Component {
     this.state = {
       modalVisible: false,
       animatedHeight: new Animated.Value(0),
-      pan: new Animated.ValueXY()
+      pan: new Animated.ValueXY(),
+      contententHeight: 0
     };
 
     this.createPanResponder(props);
@@ -79,6 +80,12 @@ class RBSheet extends Component {
     });
   }
 
+  // for dynamic height calculation
+  onContentLayout = (event) => {
+    const { height } = event.nativeEvent.layout;
+    this.setState({ contentHeight: height });
+  }
+
   open(props) {
     this.setModalVisible(true, props);
   }
@@ -96,12 +103,17 @@ class RBSheet extends Component {
       closeOnPressBack,
       children,
       customStyles,
-      keyboardAvoidingViewEnabled
+      keyboardAvoidingViewEnabled,
+      dynamicHeight
     } = this.props;
     const { animatedHeight, pan, modalVisible } = this.state;
     const panStyle = {
       transform: pan.getTranslateTransform()
     };
+
+    let containerStyle = dynamicHeight
+    ? { ...styles.container, height: contentHeight, ...customStyles.container }
+    : [panStyle, styles.container, { height: animatedHeight }, customStyles.container];
 
     return (
       <Modal
@@ -125,7 +137,7 @@ class RBSheet extends Component {
           />
           <Animated.View
             {...(!dragFromTopOnly && this.panResponder.panHandlers)}
-            style={[panStyle, styles.container, { height: animatedHeight }, customStyles.container]}
+            style={containerStyle}
           >
             {closeOnDragDown && (
               <View
@@ -135,7 +147,9 @@ class RBSheet extends Component {
                 <View style={[styles.draggableIcon, customStyles.draggableIcon]} />
               </View>
             )}
-            {children}
+             <View onLayout={dynamicHeight ? this.onContentLayout : null}>
+                {children}
+              </View>
           </Animated.View>
         </KeyboardAvoidingView>
       </Modal>
@@ -157,7 +171,8 @@ RBSheet.propTypes = {
   customStyles: PropTypes.objectOf(PropTypes.object),
   onClose: PropTypes.func,
   onOpen: PropTypes.func,
-  children: PropTypes.node
+  children: PropTypes.node,
+  dynamicHeight: PropTypes.bool
 };
 
 RBSheet.defaultProps = {
@@ -174,6 +189,7 @@ RBSheet.defaultProps = {
   customStyles: {},
   onClose: null,
   onOpen: null,
+  dynamicHeight: false,
   children: <View />
 };
 
