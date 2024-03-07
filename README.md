@@ -1,5 +1,17 @@
 # react-native-raw-bottom-sheet
 
+> ## Motivation
+>
+> Thank you for using the `react-native-raw-bottom-sheet` library. 
+>
+> This library has been published for over 5 years and I've noticed that new libraries are being published frequently, and I hope that those newer libraries will replace this small library with time, that's why I have stopped maintaining this project for the past few years.
+>
+> However, I was pleasantly surprised to see that the number of installations has remained high over the past year. Therefore, I have decided to continue to maintain this project.
+>
+> I will ensure that this project remains simple and lightweight, without requiring any configuration or external dependencies. 
+>
+> I would also like to express my gratitude to all the contributors who have made pull requests. Thank you!
+
 [![npm version](https://badge.fury.io/js/react-native-raw-bottom-sheet.svg)](//npmjs.com/package/react-native-raw-bottom-sheet)
 [![npm downloads](https://img.shields.io/npm/dm/react-native-raw-bottom-sheet.svg)
 ](//npmjs.com/package/react-native-raw-bottom-sheet)
