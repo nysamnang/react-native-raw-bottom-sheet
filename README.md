@@ -140,6 +140,7 @@ renderItem = (item, index) => (
 | onOpen           | function | Callback function when Bottom Sheet has opened          | null     |
 | customStyles     | object   | Custom style to Bottom Sheet                            | {}       |
 | keyboardAvoidingViewEnabled     | boolean   | Enable KeyboardAvoidingView             | true (ios) |
+| customModalProps     | object   | Custom props to Bottom Sheet Modal            | {} |
 
 ### Available Custom Style
 
