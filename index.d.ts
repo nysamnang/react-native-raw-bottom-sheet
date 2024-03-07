@@ -12,8 +12,8 @@ declare module "react-native-raw-bottom-sheet" {
     dragFromTopOnly?: boolean;
     closeOnPressMask?: boolean;
     closeOnPressBack?: boolean;
-    onClose?: () => void;
-    onOpen?: () => void;
+    onClose?: (params?: any) => void;
+    onOpen?: (params?: any) => void;
     customStyles?: {
       wrapper?: StyleProp<ViewStyle>;
       container?: StyleProp<ViewStyle>;
@@ -23,7 +23,7 @@ declare module "react-native-raw-bottom-sheet" {
   };
 
   export default class RBSheet extends Component<RBSheetProps> {
-    open(): void;
-    close(): void;
+    open(params?: any): void;
+    close(params?: any): void;
   }
 }
