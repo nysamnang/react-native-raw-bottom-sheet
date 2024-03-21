@@ -12,6 +12,7 @@ Please pay close attention if you are upgrading the RBSheet from version 2 to ve
 [![npm version](https://badge.fury.io/js/react-native-raw-bottom-sheet.svg)](//npmjs.com/package/react-native-raw-bottom-sheet)
 [![npm downloads](https://img.shields.io/npm/dm/react-native-raw-bottom-sheet.svg)
 ](//npmjs.com/package/react-native-raw-bottom-sheet)
+[![GitHub Actions](https://github.com/nysamnang/react-native-raw-bottom-sheet/actions/workflows/ci.yml/badge.svg)](https://github.com/nysamnang/react-native-raw-bottom-sheet/actions/workflows/ci.yml)
 [![codecov](https://codecov.io/gh/nysamnang/react-native-raw-bottom-sheet/graph/badge.svg?token=tJuJsd1V8e)](https://codecov.io/gh/nysamnang/react-native-raw-bottom-sheet)
 
 - Super Lightweight Component

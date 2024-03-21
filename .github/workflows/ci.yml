@@ -1,4 +1,4 @@
-name: CI workflow for Codecov
+name: GitHub Actions
 on: [push, pull_request]
 jobs:
   run:
