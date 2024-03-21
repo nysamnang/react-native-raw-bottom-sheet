@@ -1,11 +1,12 @@
 # OSX
 .DS_Store
 
-# Node Module
-node_modules/
-
 # Jest Test Coverage
 coverage/
 
-# Ignore editor config
-.idea
+# Example Code
+example/node_modules/
+example/.expo/
+
+# Node Module
+node_modules/

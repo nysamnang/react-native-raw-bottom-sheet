@@ -1,24 +1,21 @@
 # react-native-raw-bottom-sheet
 
-> ## Motivation
->
-> Thank you for using the `react-native-raw-bottom-sheet` library. 
->
-> This library has been published for over 5 years and I've noticed that new libraries are being published frequently, and I hope that those newer libraries will replace this small library with time, that's why I have stopped maintaining this project for the past few years.
->
-> However, I was pleasantly surprised to see that the number of installations has remained high over the past year. Therefore, I have decided to continue to maintain this project.
->
-> I will ensure that this project remains simple and lightweight, without requiring any configuration or external dependencies. 
->
-> I would also like to express my gratitude to all the contributors who have made pull requests. Thank you!
+## Hooray! The new version 3 has been released.
+
+Please pay close attention if you are upgrading the RBSheet from version 2 to version 3.
+
+- Functional Components: Starting from v3.0.0, RBSheet has been completely rewritten using Functional Components. This improves performance and aligns with modern React practices.
+- Prop Removal & Renaming: Several props have been removed and renamed for improved clarity and maintainability. Please refer to the updated documentation for a complete list of available props and their intended behavior.
+
+<hr>
 
 [![npm version](https://badge.fury.io/js/react-native-raw-bottom-sheet.svg)](//npmjs.com/package/react-native-raw-bottom-sheet)
 [![npm downloads](https://img.shields.io/npm/dm/react-native-raw-bottom-sheet.svg)
 ](//npmjs.com/package/react-native-raw-bottom-sheet)
-[![Build Status](https://travis-ci.org/nysamnang/react-native-raw-bottom-sheet.svg?branch=master)](https://travis-ci.org/nysamnang/react-native-raw-bottom-sheet)
+[![codecov](https://codecov.io/gh/nysamnang/react-native-raw-bottom-sheet/graph/badge.svg?token=tJuJsd1V8e)](https://codecov.io/gh/nysamnang/react-native-raw-bottom-sheet)
 
 - Super Lightweight Component
-- Add Your own Component To Bottom Sheet
+- Add Your Own Component To Bottom Sheet
 - Customize Whatever You Like
 - Support Drag Down Gesture
 - Support All Orientations
@@ -26,7 +23,7 @@
 - Smooth Animation
 - Zero Configuration
 - Zero dependency
-- Top Search Ranking (react native bottom sheet) at [npms.io](https://npms.io/search?q=react%20native%20bottom%20sheet)
+- Millions of Downloads
 
 |                                                      Showcase iOS                                                      |                                                    Showcase Android                                                    |
 | :--------------------------------------------------------------------------------------------------------------------: | :--------------------------------------------------------------------------------------------------------------------: |
@@ -46,71 +43,42 @@ yarn add react-native-raw-bottom-sheet
 
 ## Example
 
-#### Class component
+Please check the [example](https://github.com/nysamnang/react-native-raw-bottom-sheet/tree/master/example) folder to explore more example codes.
+
+#### Single Bottom Sheet
 
 ```jsx
-import React, { Component } from "react";
-import { View, Button } from "react-native";
-import RBSheet from "react-native-raw-bottom-sheet";
-
-export default class Example extends Component {
-  render() {
-    return (
-      <View style={{ flex: 1, justifyContent: "center", alignItems: "center" }}>
-        <Button title="OPEN BOTTOM SHEET" onPress={() => this.RBSheet.open()} />
-        <RBSheet
-          ref={ref => {
-            this.RBSheet = ref;
-          }}
-          height={300}
-          openDuration={250}
-          customStyles={{
-            container: {
-              justifyContent: "center",
-              alignItems: "center"
-            }
-          }}
-        >
-          <YourOwnComponent />
-        </RBSheet>
-      </View>
-    );
-  }
-}
-```
-
-#### Functional component
-
-```jsx
-import React, { useRef } from "react";
-import { View, Button } from "react-native";
-import RBSheet from "react-native-raw-bottom-sheet";
+import React, {useRef} from 'react';
+import {View, Button} from 'react-native';
+import RBSheet from 'react-native-raw-bottom-sheet';
 
 export default function Example() {
   const refRBSheet = useRef();
+
   return (
-    <View
-      style={{
-        flex: 1,
-        justifyContent: "center",
-        alignItems: "center",
-        backgroundColor: "#000"
-      }}
-    >
-      <Button title="OPEN BOTTOM SHEET" onPress={() => refRBSheet.current.open()} />
+    <View style={{flex: 1}}>
+      <Button
+        title="OPEN BOTTOM SHEET"
+        onPress={() => refRBSheet.current.open()}
+      />
       <RBSheet
         ref={refRBSheet}
-        closeOnDragDown={true}
-        closeOnPressMask={false}
+        useNativeDriver={true}
         customStyles={{
           wrapper: {
-            backgroundColor: "transparent"
+            backgroundColor: 'transparent',
           },
           draggableIcon: {
-            backgroundColor: "#000"
-          }
+            backgroundColor: '#000',
+          },
         }}
-      >
+        customModalProps={{
+          animationType: 'slide',
+          statusBarTranslucent: true,
+        }}
+        customAvoidingViewProps={{
+          enabled: false,
+        }}>
         <YourOwnComponent />
       </RBSheet>
     </View>
@@ -118,68 +86,86 @@ export default function Example() {
 }
 ```
 
-#### Dynamic Bottom Sheet
+#### Multiple Bottom Sheet
 
 ```jsx
-renderItem = (item, index) => (
-  <View>
-    <Button title={`OPEN BOTTOM SHEET-${index}`} onPress={() => this[RBSheet + index].open()} />
-    <RBSheet
-      ref={ref => {
-        this[RBSheet + index] = ref;
-      }}
-    >
-      <YourOwnComponent onPress={() => this[RBSheet + index].close()} />
-    </RBSheet>
-  </View>
-);
+const refRBSheet = useRef([]);
+
+const renderItem = ({item, index}) => {
+  return (
+    <View>
+      <TouchableOpacity
+        style={styles.button}
+        onPress={() => refRBSheet.current[index].open()}>
+        <Text style={styles.buttonText}>ITEM {item + 1}</Text>
+      </TouchableOpacity>
+
+      <RBSheet ref={ref => (refRBSheet.current[index] = ref)}>
+        <View style={styles.bottomSheetContainer}>
+          <Text style={styles.bottomSheetText}>I AM ITEM {item + 1}</Text>
+        </View>
+      </RBSheet>
+    </View>
+  );
+};
 ```
 
 ## Props
 
-| Props                      | Type     | Description                                             | Default  |
-| ---------------------------| -------- | ------------------------------------------------------- | -------- |
-| animationType              | string   | Background animation ("none", "fade", "slide")          | "none"   |
-| height                     | number   | Height of Bottom Sheet                                  | 260      |
-| minClosingHeight           | number   | Minimum height of Bottom Sheet before close             | 0        |
-| openDuration               | number   | Open Bottom Sheet animation duration                    | 300 (ms) |
-| closeDuration              | number   | Close Bottom Sheet animation duration                   | 200 (ms) |
-| closeOnDragDown            | boolean  | Use gesture drag down to close Bottom Sheet             | false    |
-| closeOnTouchablesDragDown  | boolean  | Use gesture drag down on touchable components to close Bottom Sheet<br/> (Doesn't work for touchable components inside a scrollView) <br/> (closeOnDragDown must be enabled for this to work)            | false    |
-| dragFromTopOnly            | boolean  | Drag only the top area of the draggableIcon to close Bottom Sheet instead of the whole content | false    |
-| closeOnPressMask           | boolean  | Press the area outside to close Bottom Sheet            | true     |
-| closeOnPressBack           | boolean  | Press back android to close Bottom Sheet (Android only) | true     |
-| onClose                    | function | Callback function when Bottom Sheet has closed          | null     |
-| onOpen                     | function | Callback function when Bottom Sheet has opened          | null     |
-| customStyles               | object   | Custom style to Bottom Sheet                            | {}       |
-| keyboardAvoidingViewEnabled     | boolean   | Enable KeyboardAvoidingView             | true (ios) |
-| customModalProps     | object   | Custom props to Bottom Sheet Modal            | {} |
+| Props                   | Type     | Description                                                                                                                                            | Default  |
+| ----------------------- | -------- | ------------------------------------------------------------------------------------------------------------------------------------------------------ | -------- |
+| height                  | number   | The height of bottom sheet.                                                                                                                            | 260      |
+| openDuration            | number   | Duration of the animation when opening bottom sheet.                                                                                                   | 300 (ms) |
+| closeDuration           | number   | Duration of the animation when closing bottom sheet.                                                                                                   | 200 (ms) |
+| closeOnPressMask        | boolean  | Press the outside area (mask) to close bottom sheet.                                                                                                   | true     |
+| closeOnPressBack        | boolean  | Press hardware back android to close bottom sheet (Android only).                                                                                      | false    |
+| draggable               | boolean  | Enable the drag-down gesture to close the bottom sheet.                                                                                                | false    |
+| dragOnContent           | boolean  | The draggable is only worked on the draggable icon. Set this to `true`<br />if you want to drag on the content as well (doesn't work with ScrollView). | false    |
+| useNativeDriver         | boolean  | Use the native driver to run smoother animation.                                                                                                       | false    |
+| customStyles            | object   | Add [custom styles](#available-custom-style) to bottom sheet.                                                                                          | {}       |
+| customModalProps        | object   | Add [custom props](https://reactnative.dev/docs/modal#props) to modal.                                                                                 | {}       |
+| customAvoidingViewProps | object   | Add [custom props](https://reactnative.dev/docs/keyboardavoidingview#props) to KeyboardAvoidingView.                                                   | {}       |
+| onOpen                  | function | Callback function that will be called after the bottom sheet has been opened.                                                                          | null     |
+| onClose                 | function | Callback function that will be called after the bottom sheet has been closed.                                                                          | null     |
 
 ### Available Custom Style
 
-```
+```js
 customStyles: {
-  wrapper: {...}, // The Root of Component (You can change the `backgroundColor` or any styles)
-  container: {...}, // The Container of Bottom Sheet
-  draggableIcon: {...} // The Draggable Icon (If you set closeOnDragDown to true)
+  wrapper: {...}, // The Root of component (Change the mask's background color here).
+  container: {...}, // The Container of bottom sheet (The animated view that contains your component).
+  draggableIcon: {...} // The style of Draggable Icon (If you set `draggable` to `true`).
 }
 ```
 
 ## Methods
 
-| Method Name | Description        |
-| ----------- | ------------------ |
-| open        | Open Bottom Sheet  |
-| close       | Close Bottom Sheet |
+| Method Name | Description                       | Usage                        |
+| ----------- | --------------------------------- | ---------------------------- |
+| open        | The method to open bottom sheet.  | `refRBSheet.current.open()`  |
+| close       | The method to close bottom sheet. | `refRBSheet.current.close()` |
 
-## Note
+## CONTRIBUTING
 
-- If you combind `RBSheet` with <a href="https://github.com/kmagiera/react-native-gesture-handler" target="_blank">react-native-gesture-handler</a>, the components inside RBSheet will not fire onPress event on Android [#37](https://github.com/nysamnang/react-native-raw-bottom-sheet/issues/37).
-- The demo source codes are in `example folder`.
+I'm really glad you're reading this, because we need volunteer developers to help bring this project to life.
+
+#### How to contribute:
+
+1. Clone this repository
+2. Open project, then run `yarn` to install devDependencies
+3. Add your magic code for contribution
+4. Test your code
+   - Navigate to `example` folder
+   - Run `yarn` & `yarn start` to run the example project
+   - Test your code in `example/App.js`
+5. Update `README.md` to update documentation (Optional)
+6. Write unit testing in `__tests__` folder (Optional)
+7. Update `index.d.ts` to update typing (Optional)
+8. Make a pull request, Genius!
 
 ## License
 
-This project is licensed under the MIT License - see the [LICENSE.md](https://github.com/nysamnang/react-native-raw-bottom-sheet/blob/master/LICENSE) file for details
+This project is licensed under the MIT License - see the [LICENSE.md](https://github.com/nysamnang/react-native-raw-bottom-sheet/blob/master/LICENSE) file for details.
 
 ## Author
 

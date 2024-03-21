@@ -1,11 +1,12 @@
 {
   "name": "react-native-raw-bottom-sheet",
-  "version": "2.2.1",
+  "version": "3.0.0",
   "description": "Add Your Own Component To Bottom Sheet Whatever You Want (Android & iOS)",
   "main": "index.js",
   "typings": "index.d.ts",
   "scripts": {
-    "test": "jest --coverage"
+    "lint": "eslint .",
+    "test": "jest"
   },
   "repository": {
     "type": "git",
@@ -30,27 +31,22 @@
   },
   "homepage": "https://github.com/nysamnang/react-native-raw-bottom-sheet#readme",
   "devDependencies": {
-    "enzyme": "^3.9.0",
-    "enzyme-adapter-react-16": "^1.10.0",
-    "eslint": "^5.14.1",
-    "eslint-config-airbnb": "^17.1.0",
-    "eslint-config-prettier": "^4.0.0",
-    "eslint-plugin-import": "^2.16.0",
-    "eslint-plugin-jsx-a11y": "^6.2.1",
-    "eslint-plugin-prettier": "^3.0.1",
-    "eslint-plugin-react": "^7.12.4",
-    "jest": "^24.9.0",
-    "metro-react-native-babel-preset": "^0.52.0",
-    "prettier": "^1.16.4",
-    "prop-types": "^15.7.2",
-    "react": "^16.8.6",
-    "react-dom": "^16.8.3",
-    "react-native": "^0.62.2"
+    "@babel/core": "^7.24.0",
+    "@babel/preset-env": "^7.24.0",
+    "@react-native/eslint-config": "0.73.2",
+    "@react-native/typescript-config": "0.73.1",
+    "@testing-library/react-native": "^12.4.3",
+    "babel-jest": "^29.7.0",
+    "eslint": "8.19.0",
+    "jest": "29.6.3",
+    "metro-react-native-babel-preset": "^0.77.0",
+    "prettier": "2.8.8",
+    "react": "18.2.0",
+    "react-native": "0.73.2",
+    "react-test-renderer": "^18.2.0",
+    "typescript": "5.0.4"
   },
   "jest": {
-    "preset": "react-native",
-    "transform": {
-      "^.+\\.js$": "<rootDir>/node_modules/react-native/jest/preprocessor.js"
-    }
+    "preset": "react-native"
   }
 }

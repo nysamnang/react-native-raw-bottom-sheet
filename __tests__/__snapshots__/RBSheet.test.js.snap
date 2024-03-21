@@ -1,7 +1,0 @@
-// Jest Snapshot v1, https://goo.gl/fbAQLP
-
-exports[`React Native Raw Bottom Sheet Render should render correctly with any children 1`] = `ShallowWrapper {}`;
-
-exports[`React Native Raw Bottom Sheet Render should render correctly with given props 1`] = `ShallowWrapper {}`;
-
-exports[`React Native Raw Bottom Sheet Render should render correctly with no props 1`] = `ShallowWrapper {}`;

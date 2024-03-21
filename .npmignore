@@ -1,11 +1,14 @@
 # OSX
 .DS_Store
 
-# Node Module
-node_modules/
+# Github Actions
+.github/
 
 # Jest Test Coverage
 coverage/
 
-# Example
+# Example Code
 example/
+
+# Node Module
+node_modules/
