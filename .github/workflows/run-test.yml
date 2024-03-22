@@ -1,4 +1,4 @@
-name: GitHub Actions
+name: Run Unit Testing
 on: [push, pull_request]
 jobs:
   run:
