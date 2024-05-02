@@ -139,7 +139,7 @@ const RBSheet = forwardRef((props, ref) => {
           style={[
             styles.container,
             {transform: pan.getTranslateTransform()},
-            {height: animatedHeight},
+            {height: useNativeDriver?height:animatedHeight},
             customStyles.container,
           ]}>
           {draggable && ( // Show draggable icon if set it to true
